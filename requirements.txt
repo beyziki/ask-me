@@ -1,0 +1,35 @@
+fastapi>=0.111
+uvicorn[standard]>=0.30
+sqlalchemy>=2.0
+pydantic>=2.7
+pydantic-settings>=2.3
+python-multipart>=0.0.9
+passlib[argon2]>=1.7
+python-jose[cryptography]>=3.3
+
+# Document processing
+pypdf>=4.2
+markdown-it-py>=3.0
+
+# Hybrid RAG
+sentence-transformers>=3.0
+rank-bm25>=0.2.2
+faiss-cpu>=1.8
+
+# Foundry Local (yerel LLM)
+# NOT: 0.5.1'i bilinçli olarak sabitliyoruz. 1.0.0+ tamamen farklı (CLI'dan
+# bağımsız, Alpha) bir API sunuyor ve mevcut CLI 0.10.3 tabanlı kurulumla
+# (foundry service / foundry model list) uyumlu değil.
+foundry-local-sdk==0.5.1
+openai>=1.30
+httpx>=0.27  # /v1/models üzerinden model-id çözümlemesi için (llm.py)
+
+# Frontend
+streamlit>=1.36
+
+# Utils
+langdetect>=1.0.9
+tiktoken>=0.7
+
+# Test (Adım 9)
+pytest>=8.0

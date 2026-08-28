@@ -1,0 +1,227 @@
+{
+  "suite": "llm",
+  "environment": {
+    "timestamp": "2026-08-17T17:01:09.416837+00:00",
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "cpu": {
+      "processor": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+      "logical_cores": null,
+      "physical_cores": null,
+      "ram_total_mb": null
+    },
+    "gpu": {
+      "name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+      "vram_total_mb": 8188,
+      "vram_used_mb": 7877,
+      "driver": "573.22"
+    },
+    "settings": {
+      "foundry_model_alias": "ministral-3-3b-instruct-2512",
+      "model_has_thinking": false,
+      "answer_token_budgets": [
+        800
+      ],
+      "embedding_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+      "chunk_size": 220,
+      "chunk_overlap": 40,
+      "top_k_semantic": 8,
+      "top_k_bm25": 8,
+      "max_context_chunks": 5,
+      "max_context_chars": 6000,
+      "min_relevance_score": 0.3,
+      "rrf_k": 60
+    }
+  },
+  "extra": {
+    "model_alias": "ministral-3-3b-instruct-2512",
+    "model_has_thinking": false,
+    "answer_token_budgets": [
+      800
+    ],
+    "vram_used_mb_before": 7937,
+    "vram_used_mb_after_load": 7937,
+    "rss_mb_after_load": null,
+    "runs": {
+      "baglamsiz": [],
+      "kisa_baglam": [
+        {
+          "ttft_ms": 296.624900016468,
+          "total_ms": 18236.35540000396,
+          "chars": 2018,
+          "pieces": 798,
+          "approx_tokens_per_second": 27.664518975095785
+        },
+        {
+          "ttft_ms": 285.0632999907248,
+          "total_ms": 12773.602900037076,
+          "chars": 2018,
+          "pieces": 798,
+          "approx_tokens_per_second": 39.49551304734357
+        },
+        {
+          "ttft_ms": 258.8658999884501,
+          "total_ms": 13177.496299962513,
+          "chars": 2018,
+          "pieces": 798,
+          "approx_tokens_per_second": 38.28496616625384
+        }
+      ],
+      "dolu_baglam": [
+        {
+          "ttft_ms": 11151.394199987408,
+          "total_ms": 93047.58219997166,
+          "chars": 1944,
+          "pieces": 799,
+          "approx_tokens_per_second": 5.223134105252957
+        },
+        {
+          "ttft_ms": 11079.818999976851,
+          "total_ms": 130198.57649999904,
+          "chars": 1944,
+          "pieces": 799,
+          "approx_tokens_per_second": 3.732759704941963
+        },
+        {
+          "ttft_ms": 12638.423399999738,
+          "total_ms": 7268169.107399997,
+          "chars": 1944,
+          "pieces": 799,
+          "approx_tokens_per_second": 0.06686690868339663
+        }
+      ]
+    },
+    "vram_used_mb_after_generation": 7877
+  },
+  "measurements": [
+    {
+      "name": "model_warmup_soguk",
+      "unit": "ms",
+      "samples": [
+        2252.752000000328
+      ],
+      "note": "main.py:_warmup — backend açılışında bir kez; ilk sorunun gizlenen maliyeti",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 2252.752000000328,
+      "p95": 2252.752000000328,
+      "min": 2252.752000000328,
+      "max": 2252.752000000328,
+      "n": 1
+    },
+    {
+      "name": "ttft_baglamsiz",
+      "unit": "ms",
+      "samples": [],
+      "note": "llm.py:generate_answer_stream — ilk GÖRÜNÜR metin · context 0 karakter",
+      "metadata": {},
+      "skipped_reason": "DegenerateOutput: Model bozuk bir tekrar döngüsüne girdi (aynı kelime art arda onlarca kez üretildi); cevap erken kesildi. Soruyu farklı ifade edip tekrar dene.",
+      "median": null,
+      "p95": null,
+      "min": null,
+      "max": null,
+      "n": 0
+    },
+    {
+      "name": "toplam_uretim_baglamsiz",
+      "unit": "ms",
+      "samples": [],
+      "note": "akışın tamamı (retrieval hariç)",
+      "metadata": {},
+      "skipped_reason": "DegenerateOutput: Model bozuk bir tekrar döngüsüne girdi (aynı kelime art arda onlarca kez üretildi); cevap erken kesildi. Soruyu farklı ifade edip tekrar dene.",
+      "median": null,
+      "p95": null,
+      "min": null,
+      "max": null,
+      "n": 0
+    },
+    {
+      "name": "ttft_kisa_baglam",
+      "unit": "ms",
+      "samples": [
+        296.624900016468,
+        285.0632999907248,
+        258.8658999884501
+      ],
+      "note": "llm.py:generate_answer_stream — ilk GÖRÜNÜR metin · context 80 karakter",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 285.0632999907248,
+      "p95": 296.624900016468,
+      "min": 258.8658999884501,
+      "max": 296.624900016468,
+      "n": 3
+    },
+    {
+      "name": "toplam_uretim_kisa_baglam",
+      "unit": "ms",
+      "samples": [
+        18236.35540000396,
+        12773.602900037076,
+        13177.496299962513
+      ],
+      "note": "akışın tamamı (retrieval hariç)",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 13177.496299962513,
+      "p95": 18236.35540000396,
+      "min": 12773.602900037076,
+      "max": 18236.35540000396,
+      "n": 3
+    },
+    {
+      "name": "ttft_dolu_baglam",
+      "unit": "ms",
+      "samples": [
+        11151.394199987408,
+        11079.818999976851,
+        12638.423399999738
+      ],
+      "note": "llm.py:generate_answer_stream — ilk GÖRÜNÜR metin · context 16140 karakter",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 11151.394199987408,
+      "p95": 12638.423399999738,
+      "min": 11079.818999976851,
+      "max": 12638.423399999738,
+      "n": 3
+    },
+    {
+      "name": "toplam_uretim_dolu_baglam",
+      "unit": "ms",
+      "samples": [
+        93047.58219997166,
+        130198.57649999904,
+        7268169.107399997
+      ],
+      "note": "akışın tamamı (retrieval hariç)",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 130198.57649999904,
+      "p95": 7268169.107399997,
+      "min": 93047.58219997166,
+      "max": 7268169.107399997,
+      "n": 3
+    },
+    {
+      "name": "token_per_second",
+      "unit": "tok/s",
+      "samples": [
+        27.664518975095785,
+        39.49551304734357,
+        38.28496616625384,
+        5.223134105252957,
+        3.732759704941963,
+        0.06686690868339663
+      ],
+      "note": "~4 karakter/token varsayımıyla kaba tahmin",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 16.44382654017437,
+      "p95": 39.49551304734357,
+      "min": 0.06686690868339663,
+      "max": 39.49551304734357,
+      "n": 6
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+# NOT: Bu compose dosyası SADECE frontend'i (React) çalıştırır.
+#
+# Backend (FastAPI), Foundry Local'i `foundry` CLI'ı üzerinden (subprocess)
+# yönetiyor (bkz. backend/app/services/llm.py). Bu CLI Windows'a özel native
+# bir program olduğu için Linux tabanlı bir Docker container'ının içinden
+# çalıştırılamaz — dolayısıyla backend'i containerize etmiyoruz.
+#
+# Kullanım:
+#   1) Backend'i AYRI bir terminalde native başlat:
+#        uvicorn backend.app.main:app --reload
+#   2) Bu klasörde: docker compose up -d --build
+#   3) Tarayıcıda http://localhost:5173
+
+services:
+  frontend:
+    build:
+      context: ./frontend-web
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend-web:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_BASE_URL=http://127.0.0.1:8000
+    # `browser -> 127.0.0.1:8000` isteği tarayıcıdan (host'tan) gittiği için
+    # container'ın backend'e ağ erişimi olması gerekmiyor; VITE_API_BASE_URL
+    # sadece derlenen JS içine gömülen bir değer.

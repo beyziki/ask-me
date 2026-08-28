@@ -1,0 +1,399 @@
+{
+  "suite": "concurrent",
+  "environment": {
+    "timestamp": "2026-08-17T17:08:00.415355+00:00",
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "cpu": {
+      "processor": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+      "logical_cores": null,
+      "physical_cores": null,
+      "ram_total_mb": null
+    },
+    "gpu": {
+      "name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+      "vram_total_mb": 8188,
+      "vram_used_mb": 7869,
+      "driver": "573.22"
+    },
+    "settings": {
+      "foundry_model_alias": "ministral-3-3b-instruct-2512",
+      "model_has_thinking": false,
+      "answer_token_budgets": [
+        800
+      ],
+      "embedding_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+      "chunk_size": 220,
+      "chunk_overlap": 40,
+      "top_k_semantic": 8,
+      "top_k_bm25": 8,
+      "max_context_chunks": 5,
+      "max_context_chars": 6000,
+      "min_relevance_score": 0.3,
+      "rrf_k": 60
+    }
+  },
+  "extra": {
+    "base_url": "http://127.0.0.1:8000",
+    "user_id": 1,
+    "levels": [
+      1,
+      2,
+      5,
+      10
+    ],
+    "waves": {
+      "1": [
+        {
+          "ttft_ms": 10668.665100005455,
+          "total_ms": 30149.742499983404,
+          "tokens": 798,
+          "error": null
+        }
+      ],
+      "2": [
+        {
+          "ttft_ms": 7458.190000033937,
+          "total_ms": 55841.49710001657,
+          "tokens": 798,
+          "error": null
+        },
+        {
+          "ttft_ms": 7427.930200006813,
+          "total_ms": 55812.75119999191,
+          "tokens": 799,
+          "error": null
+        }
+      ],
+      "5": [
+        {
+          "ttft_ms": 16003.365800017491,
+          "total_ms": 262949.02280002134,
+          "tokens": 798,
+          "error": null
+        },
+        {
+          "ttft_ms": 8542.357400001492,
+          "total_ms": 261075.9707999532,
+          "tokens": 799,
+          "error": null
+        },
+        {
+          "ttft_ms": 15885.746800049674,
+          "total_ms": 261829.00329999393,
+          "tokens": 799,
+          "error": null
+        },
+        {
+          "ttft_ms": 15885.704100015573,
+          "total_ms": 65909.22480000881,
+          "tokens": 189,
+          "error": "Model bozuk bir tekrar döngüsüne girdi (aynı kelime art arda onlarca kez üretildi); cevap erken kesildi. Soruyu farklı ifade edip tekrar dene."
+        },
+        {
+          "ttft_ms": 15889.767099986784,
+          "total_ms": 262768.20210000733,
+          "tokens": 799,
+          "error": null
+        }
+      ],
+      "10": [
+        {
+          "ttft_ms": null,
+          "total_ms": 15154.143399966415,
+          "tokens": 0,
+          "error": "Foundry Local ile bağlantı üretim başlamadan/sırasında beklenmedik şekilde kesildi. `foundry server status` ile servisi kontrol edip tekrar deneyin."
+        },
+        {
+          "ttft_ms": null,
+          "total_ms": 15350.672299973667,
+          "tokens": 0,
+          "error": "Foundry Local ile bağlantı üretim başlamadan/sırasında beklenmedik şekilde kesildi. `foundry server status` ile servisi kontrol edip tekrar deneyin."
+        },
+        {
+          "ttft_ms": null,
+          "total_ms": 15138.483199989423,
+          "tokens": 0,
+          "error": "Foundry Local ile bağlantı üretim başlamadan/sırasında beklenmedik şekilde kesildi. `foundry server status` ile servisi kontrol edip tekrar deneyin."
+        },
+        {
+          "ttft_ms": 10338.122599991038,
+          "total_ms": 15322.977699979674,
+          "tokens": 4,
+          "error": null
+        },
+        {
+          "ttft_ms": null,
+          "total_ms": 15147.720500011928,
+          "tokens": 0,
+          "error": "Foundry Local ile bağlantı üretim başlamadan/sırasında beklenmedik şekilde kesildi. `foundry server status` ile servisi kontrol edip tekrar deneyin."
+        },
+        {
+          "ttft_ms": null,
+          "total_ms": 15344.070399994962,
+          "tokens": 0,
+          "error": "Foundry Local ile bağlantı üretim başlamadan/sırasında beklenmedik şekilde kesildi. `foundry server status` ile servisi kontrol edip tekrar deneyin."
+        },
+        {
+          "ttft_ms": null,
+          "total_ms": 15139.700100000482,
+          "tokens": 0,
+          "error": "Foundry Local ile bağlantı üretim başlamadan/sırasında beklenmedik şekilde kesildi. `foundry server status` ile servisi kontrol edip tekrar deneyin."
+        },
+        {
+          "ttft_ms": 12627.893800032325,
+          "total_ms": 15354.679100040812,
+          "tokens": 1,
+          "error": null
+        },
+        {
+          "ttft_ms": 8301.763799972832,
+          "total_ms": 15355.614800006151,
+          "tokens": 7,
+          "error": null
+        },
+        {
+          "ttft_ms": null,
+          "total_ms": 15333.910199988168,
+          "tokens": 0,
+          "error": "Model bu soru için görünür bir cevap üretmedi (muhtemelen `/no_think`'e rağmen tüm token bütçesini akıl yürütmede tükettim, `<think>` bloğu hiç kapanmadan token sınırına ulaşıldı, ya da geriye anlamsız derecede kısa bir metin kaldı). Otomatik yeniden deneme(ler) de sonuç vermedi -- soruyu tekrar dene ya da biraz daha basit ifade et."
+        }
+      ]
+    },
+    "error_rate": {
+      "1": 0.0,
+      "2": 0.0,
+      "5": 0.2,
+      "10": 0.7
+    }
+  },
+  "measurements": [
+    {
+      "name": "health_latency_yuksuz",
+      "unit": "ms",
+      "samples": [
+        252.77649995405227,
+        404.01589998509735,
+        511.46690000314265,
+        405.5513999774121,
+        378.1683999695815,
+        388.64590000594035,
+        736.883100005798,
+        552.9728999827057,
+        706.7735999589786,
+        779.5616000075825,
+        624.5280000148341,
+        605.8119999943301,
+        570.1406000298448,
+        566.6319000301883,
+        717.6806000061333,
+        695.5939999897964,
+        637.2402000124566,
+        611.5617000032216,
+        735.1981999818236,
+        707.0971000357531
+      ],
+      "note": "referans değer",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 608.6868499987759,
+      "p95": 779.5616000075825,
+      "min": 252.77649995405227,
+      "max": 779.5616000075825,
+      "n": 20
+    },
+    {
+      "name": "ttft_1_esszamanli",
+      "unit": "ms",
+      "samples": [
+        10668.665100005455
+      ],
+      "note": "1 eşzamanlı /ask/stream · hata: 0/1",
+      "metadata": {
+        "errors": []
+      },
+      "skipped_reason": null,
+      "median": 10668.665100005455,
+      "p95": 10668.665100005455,
+      "min": 10668.665100005455,
+      "max": 10668.665100005455,
+      "n": 1
+    },
+    {
+      "name": "toplam_1_esszamanli",
+      "unit": "ms",
+      "samples": [
+        30149.742499983404
+      ],
+      "note": "1 eşzamanlı /ask/stream",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 30149.742499983404,
+      "p95": 30149.742499983404,
+      "min": 30149.742499983404,
+      "max": 30149.742499983404,
+      "n": 1
+    },
+    {
+      "name": "ttft_2_esszamanli",
+      "unit": "ms",
+      "samples": [
+        7458.190000033937,
+        7427.930200006813
+      ],
+      "note": "2 eşzamanlı /ask/stream · hata: 0/2",
+      "metadata": {
+        "errors": []
+      },
+      "skipped_reason": null,
+      "median": 7443.060100020375,
+      "p95": 7458.190000033937,
+      "min": 7427.930200006813,
+      "max": 7458.190000033937,
+      "n": 2
+    },
+    {
+      "name": "toplam_2_esszamanli",
+      "unit": "ms",
+      "samples": [
+        55841.49710001657,
+        55812.75119999191
+      ],
+      "note": "2 eşzamanlı /ask/stream",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 55827.12415000424,
+      "p95": 55841.49710001657,
+      "min": 55812.75119999191,
+      "max": 55841.49710001657,
+      "n": 2
+    },
+    {
+      "name": "ttft_5_esszamanli",
+      "unit": "ms",
+      "samples": [
+        16003.365800017491,
+        8542.357400001492,
+        15885.746800049674,
+        15885.704100015573,
+        15889.767099986784
+      ],
+      "note": "5 eşzamanlı /ask/stream · hata: 1/5",
+      "metadata": {
+        "errors": [
+          "Model bozuk bir tekrar döngüsüne girdi (aynı kelime art arda onlarca kez üretildi); cevap erken kesildi. Soruyu farklı ifade edip tekrar dene."
+        ]
+      },
+      "skipped_reason": null,
+      "median": 15885.746800049674,
+      "p95": 16003.365800017491,
+      "min": 8542.357400001492,
+      "max": 16003.365800017491,
+      "n": 5
+    },
+    {
+      "name": "toplam_5_esszamanli",
+      "unit": "ms",
+      "samples": [
+        262949.02280002134,
+        261075.9707999532,
+        261829.00329999393,
+        65909.22480000881,
+        262768.20210000733
+      ],
+      "note": "5 eşzamanlı /ask/stream",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 261829.00329999393,
+      "p95": 262949.02280002134,
+      "min": 65909.22480000881,
+      "max": 262949.02280002134,
+      "n": 5
+    },
+    {
+      "name": "ttft_10_esszamanli",
+      "unit": "ms",
+      "samples": [
+        10338.122599991038,
+        12627.893800032325,
+        8301.763799972832
+      ],
+      "note": "10 eşzamanlı /ask/stream · hata: 7/10",
+      "metadata": {
+        "errors": [
+          "Foundry Local ile bağlantı üretim başlamadan/sırasında beklenmedik şekilde kesildi. `foundry server status` ile servisi kontrol edip tekrar deneyin.",
+          "Foundry Local ile bağlantı üretim başlamadan/sırasında beklenmedik şekilde kesildi. `foundry server status` ile servisi kontrol edip tekrar deneyin.",
+          "Foundry Local ile bağlantı üretim başlamadan/sırasında beklenmedik şekilde kesildi. `foundry server status` ile servisi kontrol edip tekrar deneyin.",
+          "Foundry Local ile bağlantı üretim başlamadan/sırasında beklenmedik şekilde kesildi. `foundry server status` ile servisi kontrol edip tekrar deneyin.",
+          "Foundry Local ile bağlantı üretim başlamadan/sırasında beklenmedik şekilde kesildi. `foundry server status` ile servisi kontrol edip tekrar deneyin.",
+          "Foundry Local ile bağlantı üretim başlamadan/sırasında beklenmedik şekilde kesildi. `foundry server status` ile servisi kontrol edip tekrar deneyin.",
+          "Model bu soru için görünür bir cevap üretmedi (muhtemelen `/no_think`'e rağmen tüm token bütçesini akıl yürütmede tükettim, `<think>` bloğu hiç kapanmadan token sınırına ulaşıldı, ya da geriye anlamsız derecede kısa bir metin kaldı). Otomatik yeniden deneme(ler) de sonuç vermedi -- soruyu tekrar dene ya da biraz daha basit ifade et."
+        ]
+      },
+      "skipped_reason": null,
+      "median": 10338.122599991038,
+      "p95": 12627.893800032325,
+      "min": 8301.763799972832,
+      "max": 12627.893800032325,
+      "n": 3
+    },
+    {
+      "name": "toplam_10_esszamanli",
+      "unit": "ms",
+      "samples": [
+        15154.143399966415,
+        15350.672299973667,
+        15138.483199989423,
+        15322.977699979674,
+        15147.720500011928,
+        15344.070399994962,
+        15139.700100000482,
+        15354.679100040812,
+        15355.614800006151,
+        15333.910199988168
+      ],
+      "note": "10 eşzamanlı /ask/stream",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 15328.44394998392,
+      "p95": 15355.614800006151,
+      "min": 15138.483199989423,
+      "max": 15355.614800006151,
+      "n": 10
+    },
+    {
+      "name": "health_latency_3_akis_altinda",
+      "unit": "ms",
+      "samples": [
+        773.0569000123069,
+        943.6375999939628,
+        1057.0476000430062,
+        994.2205999977887,
+        653.9390999823809,
+        937.3988999868743,
+        801.7984999460168,
+        641.420100000687,
+        880.465499998536,
+        824.6589000336826,
+        939.3866999889724,
+        662.6510000205599,
+        1124.8533999896608,
+        880.8316999929957,
+        634.3590999604203,
+        1012.4371999991126,
+        965.3478999971412,
+        726.4829000341706,
+        880.8495999546722,
+        552.0108999917284
+      ],
+      "note": "event loop/threadpool tıkanıklığı göstergesi (audit P0-3, P1-6)",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 880.6485999957658,
+      "p95": 1124.8533999896608,
+      "min": 552.0108999917284,
+      "max": 1124.8533999896608,
+      "n": 20
+    }
+  ]
+}

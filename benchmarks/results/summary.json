@@ -1,0 +1,1281 @@
+{
+  "started_at": "2026-08-17T14:54:36.953815+00:00",
+  "environment": {
+    "timestamp": "2026-08-17T14:54:36.953815+00:00",
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "cpu": {
+      "processor": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+      "logical_cores": null,
+      "physical_cores": null,
+      "ram_total_mb": null
+    },
+    "gpu": {
+      "name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+      "vram_total_mb": 8188,
+      "vram_used_mb": 7937,
+      "driver": "573.22"
+    },
+    "settings": {
+      "foundry_model_alias": "ministral-3-3b-instruct-2512",
+      "model_has_thinking": false,
+      "answer_token_budgets": [
+        800
+      ],
+      "embedding_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+      "chunk_size": 220,
+      "chunk_overlap": 40,
+      "top_k_semantic": 8,
+      "top_k_bm25": 8,
+      "max_context_chunks": 5,
+      "max_context_chars": 6000,
+      "min_relevance_score": 0.3,
+      "rrf_k": 60
+    }
+  },
+  "suites": {
+    "retrieval": {
+      "ok": true,
+      "measurements": [
+        {
+          "name": "db_tum_chunklari_cek",
+          "unit": "ms",
+          "samples": [
+            15.259300009347498,
+            15.800799999851733,
+            20.737299986649305,
+            15.061400015838444,
+            14.75530001334846
+          ],
+          "note": "api/ask.py:121 — 1014 satır, 4.46 MB metin, HER SORUDA",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 15.259300009347498,
+          "p95": 20.737299986649305,
+          "min": 14.75530001334846,
+          "max": 20.737299986649305,
+          "n": 5
+        },
+        {
+          "name": "bm25_korpus_tokenizasyonu",
+          "unit": "ms",
+          "samples": [
+            435.60900003649294,
+            490.5307000153698,
+            608.4583000047132,
+            619.9842999922112,
+            499.0834000054747
+          ],
+          "note": "rag.py:258 — önbelleğe RAĞMEN her soruda tekrarlanıyor",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 499.0834000054747,
+          "p95": 619.9842999922112,
+          "min": 435.60900003649294,
+          "max": 619.9842999922112,
+          "n": 5
+        },
+        {
+          "name": "bm25_index_kurulumu",
+          "unit": "ms",
+          "samples": [
+            324.15139995282516,
+            308.4911999758333,
+            324.1929999785498
+          ],
+          "note": "rag.py:246 — önbellekli, yalnızca ilk soruda ödeniyor",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 324.15139995282516,
+          "p95": 324.1929999785498,
+          "min": 308.4911999758333,
+          "max": 324.1929999785498,
+          "n": 3
+        },
+        {
+          "name": "bm25_search_tr_kisa",
+          "unit": "ms",
+          "samples": [
+            452.3645000299439,
+            467.65980002237484,
+            458.67409999482334,
+            441.69919996056706,
+            438.8223999994807,
+            474.6768999611959,
+            445.7865000003949,
+            452.1468000020832,
+            475.02129996428266,
+            451.6311000334099
+          ],
+          "note": "rag.py:254 — tokenizasyon DAHİL (gerçek istek yolu) · 'Turing makinesi nedir?'",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 452.25565001601353,
+          "p95": 475.02129996428266,
+          "min": 438.8223999994807,
+          "max": 475.02129996428266,
+          "n": 10
+        },
+        {
+          "name": "bm25_search_en",
+          "unit": "ms",
+          "samples": [
+            479.88290002103895,
+            437.2484000050463,
+            433.6546000558883,
+            584.7660000436008,
+            451.0825000470504,
+            463.27070001279935,
+            432.6062999898568,
+            437.3304999899119,
+            444.4663000176661,
+            453.66549998288974
+          ],
+          "note": "rag.py:254 — tokenizasyon DAHİL (gerçek istek yolu) · 'What is a finite state machine?'",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 447.77440003235824,
+          "p95": 584.7660000436008,
+          "min": 432.6062999898568,
+          "max": 584.7660000436008,
+          "n": 10
+        },
+        {
+          "name": "bm25_search_alakasiz",
+          "unit": "ms",
+          "samples": [
+            429.9440999748185,
+            434.648800001014,
+            428.6392999929376,
+            447.9642999940552,
+            432.38129996461794,
+            447.82519998261705,
+            445.1045999885537,
+            436.7006000247784,
+            451.9270000164397,
+            496.59369996516034
+          ],
+          "note": "rag.py:254 — tokenizasyon DAHİL (gerçek istek yolu) · 'bugün hava nasıl'",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 440.90260000666603,
+          "p95": 496.59369996516034,
+          "min": 428.6392999929376,
+          "max": 496.59369996516034,
+          "n": 10
+        },
+        {
+          "name": "faiss_read_index",
+          "unit": "ms",
+          "samples": [
+            1.4944999711588025,
+            0.8683999767526984,
+            0.9051000233739614,
+            1.3531000004149973,
+            1.1259999591857195
+          ],
+          "note": "rag.py:81 — önbellekli (`_read_index_cached`), soğuk okuma maliyeti",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 1.1259999591857195,
+          "p95": 1.4944999711588025,
+          "min": 0.8683999767526984,
+          "max": 1.4944999711588025,
+          "n": 5
+        },
+        {
+          "name": "faiss_search",
+          "unit": "ms",
+          "samples": [
+            0.10720000136643648,
+            0.08060003165155649,
+            0.0665000407025218,
+            0.0651999725960195,
+            0.07599999662488699,
+            0.06470002699643373,
+            0.0686999992467463,
+            0.06990000838413835,
+            0.07080001523718238,
+            0.0610999995842576,
+            0.06009999196976423,
+            0.058500037994235754,
+            0.058399979025125504,
+            0.06699998630210757,
+            0.05909998435527086,
+            0.05920004332438111,
+            0.058999983593821526,
+            0.06749999010935426,
+            0.05979998968541622,
+            0.05879998207092285
+          ],
+          "note": "rag.py:206 — 1014 vektör, top_k=8",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 0.06494999979622662,
+          "p95": 0.10720000136643648,
+          "min": 0.058399979025125504,
+          "max": 0.10720000136643648,
+          "n": 20
+        },
+        {
+          "name": "embedding_sorgu",
+          "unit": "ms",
+          "samples": [
+            17.131200002040714,
+            15.928999986499548,
+            16.50349999545142,
+            13.963900040835142,
+            15.169899968896061,
+            14.741100021637976,
+            14.546999998856336,
+            14.434700016863644,
+            14.520899974741042,
+            13.697899994440377
+          ],
+          "note": "rag.py:203 — soru başına, önbelleklenmiyor",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 14.644050010247156,
+          "p95": 17.131200002040714,
+          "min": 13.697899994440377,
+          "max": 17.131200002040714,
+          "n": 10
+        },
+        {
+          "name": "semantic_search_uctan_uca",
+          "unit": "ms",
+          "samples": [
+            15.427700011059642,
+            13.803299982100725,
+            14.498099975753576,
+            14.7004000027664,
+            14.80720000108704,
+            15.379799995571375,
+            14.96569998562336,
+            16.455099976155907,
+            15.347399981692433,
+            15.97320003202185
+          ],
+          "note": "rag.py:197 — embedding + FAISS arama + eşleme",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 15.156549983657897,
+          "p95": 16.455099976155907,
+          "min": 13.803299982100725,
+          "max": 16.455099976155907,
+          "n": 10
+        }
+      ],
+      "extra": {
+        "owner_id": 1,
+        "chunk_count": 1014,
+        "corpus_chars": 4463920,
+        "corpus_mb": 4.46,
+        "queries": [
+          "Turing makinesi nedir?",
+          "Context free grammar örnekleri",
+          "TCP ve UDP arasındaki fark nedir",
+          "push down automata nasıl çalışır",
+          "What is a finite state machine?",
+          "bugün hava nasıl"
+        ],
+        "faiss": {
+          "ntotal": 1014,
+          "dim": 384,
+          "type": "IndexFlatIP",
+          "in_memory_mb": 1.56
+        },
+        "document_filter_dilution": [
+          {
+            "document_id": 7,
+            "chunks": 698,
+            "corpus_share_pct": 68.8,
+            "expected_surviving_hits_of_top_k": 5.51
+          },
+          {
+            "document_id": 2,
+            "chunks": 297,
+            "corpus_share_pct": 29.3,
+            "expected_surviving_hits_of_top_k": 2.34
+          },
+          {
+            "document_id": 30,
+            "chunks": 17,
+            "corpus_share_pct": 1.7,
+            "expected_surviving_hits_of_top_k": 0.13
+          },
+          {
+            "document_id": 16,
+            "chunks": 2,
+            "corpus_share_pct": 0.2,
+            "expected_surviving_hits_of_top_k": 0.02
+          }
+        ],
+        "process_rss_mb_after": null
+      }
+    },
+    "resources": {
+      "ok": true,
+      "measurements": [
+        {
+          "name": "tumu",
+          "unit": "ms",
+          "samples": [],
+          "note": "",
+          "metadata": {},
+          "skipped_reason": "psutil kurulu değil — `pip install psutil`",
+          "median": null,
+          "p95": null,
+          "min": null,
+          "max": null,
+          "n": 0
+        }
+      ],
+      "extra": {
+        "vram_before": 7937
+      }
+    },
+    "ingestion": {
+      "ok": true,
+      "measurements": [
+        {
+          "name": "pdf_parse_kucuk_136kb",
+          "unit": "ms",
+          "samples": [
+            25.144900020677596,
+            15.238499967381358,
+            15.707199985627085
+          ],
+          "note": "ingestion.py:34 (pypdf) — User manual IFM VVB306 (English - 44 pages).pdf",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 15.707199985627085,
+          "p95": 25.144900020677596,
+          "min": 15.238499967381358,
+          "max": 25.144900020677596,
+          "n": 3
+        },
+        {
+          "name": "chunking_kucuk_136kb",
+          "unit": "ms",
+          "samples": [
+            0.003700028173625469,
+            0.002500019036233425,
+            0.0027999631129205227,
+            0.002400018274784088,
+            0.002200016751885414
+          ],
+          "note": "ingestion.py:41 — chunk_size=220 kelime",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 0.002500019036233425,
+          "p95": 0.003700028173625469,
+          "min": 0.002200016751885414,
+          "max": 0.003700028173625469,
+          "n": 5
+        },
+        {
+          "name": "embedding_kucuk_136kb",
+          "unit": "ms",
+          "samples": [
+            40.50140001345426
+          ],
+          "note": "rag.py:102 — 1 chunk tek batch'te",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 40.50140001345426,
+          "p95": 40.50140001345426,
+          "min": 40.50140001345426,
+          "max": 40.50140001345426,
+          "n": 1
+        },
+        {
+          "name": "faiss_add_write_kucuk_136kb",
+          "unit": "ms",
+          "samples": [
+            0.35849999403581023,
+            0.2702000201679766,
+            0.2528000040911138
+          ],
+          "note": "rag.py:105-108 — 1 vektör, TÜM index diske yazılıyor",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 0.2702000201679766,
+          "p95": 0.35849999403581023,
+          "min": 0.2528000040911138,
+          "max": 0.35849999403581023,
+          "n": 3
+        },
+        {
+          "name": "pdf_parse_orta_398kb",
+          "unit": "ms",
+          "samples": [
+            115.3751999954693,
+            247.7946999715641,
+            114.15129998931661
+          ],
+          "note": "ingestion.py:34 (pypdf) — VVB306-00_EN-GB.pdf",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 115.3751999954693,
+          "p95": 247.7946999715641,
+          "min": 114.15129998931661,
+          "max": 247.7946999715641,
+          "n": 3
+        },
+        {
+          "name": "chunking_orta_398kb",
+          "unit": "ms",
+          "samples": [
+            0.06640003994107246,
+            0.057999975979328156,
+            0.054500007536262274,
+            0.052099989261478186,
+            0.051499984692782164
+          ],
+          "note": "ingestion.py:41 — chunk_size=220 kelime",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 0.054500007536262274,
+          "p95": 0.06640003994107246,
+          "min": 0.051499984692782164,
+          "max": 0.06640003994107246,
+          "n": 5
+        },
+        {
+          "name": "embedding_orta_398kb",
+          "unit": "ms",
+          "samples": [
+            89.43079999880865
+          ],
+          "note": "rag.py:102 — 4 chunk tek batch'te",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 89.43079999880865,
+          "p95": 89.43079999880865,
+          "min": 89.43079999880865,
+          "max": 89.43079999880865,
+          "n": 1
+        },
+        {
+          "name": "faiss_add_write_orta_398kb",
+          "unit": "ms",
+          "samples": [
+            0.5870999884791672,
+            0.5123000009916723,
+            0.48399996012449265
+          ],
+          "note": "rag.py:105-108 — 4 vektör, TÜM index diske yazılıyor",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 0.5123000009916723,
+          "p95": 0.5870999884791672,
+          "min": 0.48399996012449265,
+          "max": 0.5870999884791672,
+          "n": 3
+        },
+        {
+          "name": "pdf_parse_buyuk_7522kb",
+          "unit": "ms",
+          "samples": [
+            585.4747999692336,
+            554.6917000319809,
+            699.5233000488952
+          ],
+          "note": "ingestion.py:34 (pypdf) — hafta 5.pdf",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 585.4747999692336,
+          "p95": 699.5233000488952,
+          "min": 554.6917000319809,
+          "max": 699.5233000488952,
+          "n": 3
+        },
+        {
+          "name": "chunking_buyuk_7522kb",
+          "unit": "ms",
+          "samples": [
+            0.3877999843098223,
+            0.3912000101990998,
+            0.38539996603503823,
+            0.36910001654177904,
+            0.37289998726919293
+          ],
+          "note": "ingestion.py:41 — chunk_size=220 kelime",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 0.38539996603503823,
+          "p95": 0.3912000101990998,
+          "min": 0.36910001654177904,
+          "max": 0.3912000101990998,
+          "n": 5
+        },
+        {
+          "name": "embedding_buyuk_7522kb",
+          "unit": "ms",
+          "samples": [
+            511.7335999966599
+          ],
+          "note": "rag.py:102 — 22 chunk tek batch'te",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 511.7335999966599,
+          "p95": 511.7335999966599,
+          "min": 511.7335999966599,
+          "max": 511.7335999966599,
+          "n": 1
+        },
+        {
+          "name": "faiss_add_write_buyuk_7522kb",
+          "unit": "ms",
+          "samples": [
+            1.3579000369645655,
+            1.0583000257611275,
+            0.790499965660274
+          ],
+          "note": "rag.py:105-108 — 22 vektör, TÜM index diske yazılıyor",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 1.0583000257611275,
+          "p95": 1.3579000369645655,
+          "min": 0.790499965660274,
+          "max": 1.3579000369645655,
+          "n": 3
+        }
+      ],
+      "extra": {
+        "files": [
+          {
+            "name": "User manual IFM VVB306 (English - 44 pages).pdf",
+            "bucket": "kucuk",
+            "size_kb": 136,
+            "text_chars": 125,
+            "chunk_count": 1,
+            "chunk_chars_min": 123,
+            "chunk_chars_median": 123,
+            "chunk_chars_max": 123,
+            "empty_chunks": 0,
+            "tiny_chunks_under_50_chars": 0
+          },
+          {
+            "name": "VVB306-00_EN-GB.pdf",
+            "bucket": "orta",
+            "size_kb": 398,
+            "text_chars": 5128,
+            "chunk_count": 4,
+            "chunk_chars_min": 1328,
+            "chunk_chars_median": 1536,
+            "chunk_chars_max": 1552,
+            "empty_chunks": 0,
+            "tiny_chunks_under_50_chars": 0
+          },
+          {
+            "name": "hafta 5.pdf",
+            "bucket": "buyuk",
+            "size_kb": 7522,
+            "text_chars": 32688,
+            "chunk_count": 22,
+            "chunk_chars_min": 651,
+            "chunk_chars_median": 1798,
+            "chunk_chars_max": 2483,
+            "empty_chunks": 0,
+            "tiny_chunks_under_50_chars": 0
+          }
+        ],
+        "process_rss_mb_after": null
+      }
+    },
+    "bundle": {
+      "ok": true,
+      "measurements": [
+        {
+          "name": "build_suresi",
+          "unit": "ms",
+          "samples": [
+            5571.397799998522
+          ],
+          "note": "tsc -b && vite build",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 5571.397799998522,
+          "p95": 5571.397799998522,
+          "min": 5571.397799998522,
+          "max": 5571.397799998522,
+          "n": 1
+        },
+        {
+          "name": "js_chunk_sayisi",
+          "unit": "adet",
+          "samples": [
+            1
+          ],
+          "note": "1 ise kod bölme YOK (audit P2-5)",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 1,
+          "p95": 1,
+          "min": 1,
+          "max": 1,
+          "n": 1
+        },
+        {
+          "name": "toplam_js_gzip",
+          "unit": "kB",
+          "samples": [
+            147.2802734375
+          ],
+          "note": "",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 147.2802734375,
+          "p95": 147.2802734375,
+          "min": 147.2802734375,
+          "max": 147.2802734375,
+          "n": 1
+        },
+        {
+          "name": "toplam_css_gzip",
+          "unit": "kB",
+          "samples": [
+            6.3466796875
+          ],
+          "note": "",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 6.3466796875,
+          "p95": 6.3466796875,
+          "min": 6.3466796875,
+          "max": 6.3466796875,
+          "n": 1
+        },
+        {
+          "name": "ilk_yukleme_gzip",
+          "unit": "kB",
+          "samples": [
+            153.626953125
+          ],
+          "note": "giriş ekranını görmek için indirilmesi ZORUNLU olan miktar — asıl optimize edilecek sayı",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 153.626953125,
+          "p95": 153.626953125,
+          "min": 153.626953125,
+          "max": 153.626953125,
+          "n": 1
+        },
+        {
+          "name": "toplam_dist_gzip",
+          "unit": "kB",
+          "samples": [
+            157.509765625
+          ],
+          "note": "",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 157.509765625,
+          "p95": 157.509765625,
+          "min": 157.509765625,
+          "max": 157.509765625,
+          "n": 1
+        }
+      ],
+      "extra": {
+        "files": [
+          {
+            "file": "assets/index-D2HkmO72.js",
+            "raw_bytes": 489623,
+            "gzip_bytes": 150815,
+            "ext": "js"
+          },
+          {
+            "file": "assets/index-DEkpuc7G.css",
+            "raw_bytes": 32887,
+            "gzip_bytes": 6499,
+            "ext": "css"
+          },
+          {
+            "file": "favicon.svg",
+            "raw_bytes": 9522,
+            "gzip_bytes": 1499,
+            "ext": "svg"
+          },
+          {
+            "file": "icons.svg",
+            "raw_bytes": 5031,
+            "gzip_bytes": 2161,
+            "ext": "svg"
+          },
+          {
+            "file": "index.html",
+            "raw_bytes": 486,
+            "gzip_bytes": 316,
+            "ext": "html"
+          }
+        ],
+        "js_chunk_count": 1,
+        "css_file_count": 1,
+        "code_splitting_active": false
+      }
+    },
+    "llm": {
+      "ok": true,
+      "measurements": [
+        {
+          "name": "model_warmup_soguk",
+          "unit": "ms",
+          "samples": [
+            2252.752000000328
+          ],
+          "note": "main.py:_warmup — backend açılışında bir kez; ilk sorunun gizlenen maliyeti",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 2252.752000000328,
+          "p95": 2252.752000000328,
+          "min": 2252.752000000328,
+          "max": 2252.752000000328,
+          "n": 1
+        },
+        {
+          "name": "ttft_baglamsiz",
+          "unit": "ms",
+          "samples": [],
+          "note": "llm.py:generate_answer_stream — ilk GÖRÜNÜR metin · context 0 karakter",
+          "metadata": {},
+          "skipped_reason": "DegenerateOutput: Model bozuk bir tekrar döngüsüne girdi (aynı kelime art arda onlarca kez üretildi); cevap erken kesildi. Soruyu farklı ifade edip tekrar dene.",
+          "median": null,
+          "p95": null,
+          "min": null,
+          "max": null,
+          "n": 0
+        },
+        {
+          "name": "toplam_uretim_baglamsiz",
+          "unit": "ms",
+          "samples": [],
+          "note": "akışın tamamı (retrieval hariç)",
+          "metadata": {},
+          "skipped_reason": "DegenerateOutput: Model bozuk bir tekrar döngüsüne girdi (aynı kelime art arda onlarca kez üretildi); cevap erken kesildi. Soruyu farklı ifade edip tekrar dene.",
+          "median": null,
+          "p95": null,
+          "min": null,
+          "max": null,
+          "n": 0
+        },
+        {
+          "name": "ttft_kisa_baglam",
+          "unit": "ms",
+          "samples": [
+            296.624900016468,
+            285.0632999907248,
+            258.8658999884501
+          ],
+          "note": "llm.py:generate_answer_stream — ilk GÖRÜNÜR metin · context 80 karakter",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 285.0632999907248,
+          "p95": 296.624900016468,
+          "min": 258.8658999884501,
+          "max": 296.624900016468,
+          "n": 3
+        },
+        {
+          "name": "toplam_uretim_kisa_baglam",
+          "unit": "ms",
+          "samples": [
+            18236.35540000396,
+            12773.602900037076,
+            13177.496299962513
+          ],
+          "note": "akışın tamamı (retrieval hariç)",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 13177.496299962513,
+          "p95": 18236.35540000396,
+          "min": 12773.602900037076,
+          "max": 18236.35540000396,
+          "n": 3
+        },
+        {
+          "name": "ttft_dolu_baglam",
+          "unit": "ms",
+          "samples": [
+            11151.394199987408,
+            11079.818999976851,
+            12638.423399999738
+          ],
+          "note": "llm.py:generate_answer_stream — ilk GÖRÜNÜR metin · context 16140 karakter",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 11151.394199987408,
+          "p95": 12638.423399999738,
+          "min": 11079.818999976851,
+          "max": 12638.423399999738,
+          "n": 3
+        },
+        {
+          "name": "toplam_uretim_dolu_baglam",
+          "unit": "ms",
+          "samples": [
+            93047.58219997166,
+            130198.57649999904,
+            7268169.107399997
+          ],
+          "note": "akışın tamamı (retrieval hariç)",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 130198.57649999904,
+          "p95": 7268169.107399997,
+          "min": 93047.58219997166,
+          "max": 7268169.107399997,
+          "n": 3
+        },
+        {
+          "name": "token_per_second",
+          "unit": "tok/s",
+          "samples": [
+            27.664518975095785,
+            39.49551304734357,
+            38.28496616625384,
+            5.223134105252957,
+            3.732759704941963,
+            0.06686690868339663
+          ],
+          "note": "~4 karakter/token varsayımıyla kaba tahmin",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 16.44382654017437,
+          "p95": 39.49551304734357,
+          "min": 0.06686690868339663,
+          "max": 39.49551304734357,
+          "n": 6
+        }
+      ],
+      "extra": {
+        "model_alias": "ministral-3-3b-instruct-2512",
+        "model_has_thinking": false,
+        "answer_token_budgets": [
+          800
+        ],
+        "vram_used_mb_before": 7937,
+        "vram_used_mb_after_load": 7937,
+        "rss_mb_after_load": null,
+        "runs": {
+          "baglamsiz": [],
+          "kisa_baglam": [
+            {
+              "ttft_ms": 296.624900016468,
+              "total_ms": 18236.35540000396,
+              "chars": 2018,
+              "pieces": 798,
+              "approx_tokens_per_second": 27.664518975095785
+            },
+            {
+              "ttft_ms": 285.0632999907248,
+              "total_ms": 12773.602900037076,
+              "chars": 2018,
+              "pieces": 798,
+              "approx_tokens_per_second": 39.49551304734357
+            },
+            {
+              "ttft_ms": 258.8658999884501,
+              "total_ms": 13177.496299962513,
+              "chars": 2018,
+              "pieces": 798,
+              "approx_tokens_per_second": 38.28496616625384
+            }
+          ],
+          "dolu_baglam": [
+            {
+              "ttft_ms": 11151.394199987408,
+              "total_ms": 93047.58219997166,
+              "chars": 1944,
+              "pieces": 799,
+              "approx_tokens_per_second": 5.223134105252957
+            },
+            {
+              "ttft_ms": 11079.818999976851,
+              "total_ms": 130198.57649999904,
+              "chars": 1944,
+              "pieces": 799,
+              "approx_tokens_per_second": 3.732759704941963
+            },
+            {
+              "ttft_ms": 12638.423399999738,
+              "total_ms": 7268169.107399997,
+              "chars": 1944,
+              "pieces": 799,
+              "approx_tokens_per_second": 0.06686690868339663
+            }
+          ]
+        },
+        "vram_used_mb_after_generation": 7877
+      }
+    },
+    "concurrent": {
+      "ok": true,
+      "measurements": [
+        {
+          "name": "health_latency_yuksuz",
+          "unit": "ms",
+          "samples": [
+            252.77649995405227,
+            404.01589998509735,
+            511.46690000314265,
+            405.5513999774121,
+            378.1683999695815,
+            388.64590000594035,
+            736.883100005798,
+            552.9728999827057,
+            706.7735999589786,
+            779.5616000075825,
+            624.5280000148341,
+            605.8119999943301,
+            570.1406000298448,
+            566.6319000301883,
+            717.6806000061333,
+            695.5939999897964,
+            637.2402000124566,
+            611.5617000032216,
+            735.1981999818236,
+            707.0971000357531
+          ],
+          "note": "referans değer",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 608.6868499987759,
+          "p95": 779.5616000075825,
+          "min": 252.77649995405227,
+          "max": 779.5616000075825,
+          "n": 20
+        },
+        {
+          "name": "ttft_1_esszamanli",
+          "unit": "ms",
+          "samples": [
+            10668.665100005455
+          ],
+          "note": "1 eşzamanlı /ask/stream · hata: 0/1",
+          "metadata": {
+            "errors": []
+          },
+          "skipped_reason": null,
+          "median": 10668.665100005455,
+          "p95": 10668.665100005455,
+          "min": 10668.665100005455,
+          "max": 10668.665100005455,
+          "n": 1
+        },
+        {
+          "name": "toplam_1_esszamanli",
+          "unit": "ms",
+          "samples": [
+            30149.742499983404
+          ],
+          "note": "1 eşzamanlı /ask/stream",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 30149.742499983404,
+          "p95": 30149.742499983404,
+          "min": 30149.742499983404,
+          "max": 30149.742499983404,
+          "n": 1
+        },
+        {
+          "name": "ttft_2_esszamanli",
+          "unit": "ms",
+          "samples": [
+            7458.190000033937,
+            7427.930200006813
+          ],
+          "note": "2 eşzamanlı /ask/stream · hata: 0/2",
+          "metadata": {
+            "errors": []
+          },
+          "skipped_reason": null,
+          "median": 7443.060100020375,
+          "p95": 7458.190000033937,
+          "min": 7427.930200006813,
+          "max": 7458.190000033937,
+          "n": 2
+        },
+        {
+          "name": "toplam_2_esszamanli",
+          "unit": "ms",
+          "samples": [
+            55841.49710001657,
+            55812.75119999191
+          ],
+          "note": "2 eşzamanlı /ask/stream",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 55827.12415000424,
+          "p95": 55841.49710001657,
+          "min": 55812.75119999191,
+          "max": 55841.49710001657,
+          "n": 2
+        },
+        {
+          "name": "ttft_5_esszamanli",
+          "unit": "ms",
+          "samples": [
+            16003.365800017491,
+            8542.357400001492,
+            15885.746800049674,
+            15885.704100015573,
+            15889.767099986784
+          ],
+          "note": "5 eşzamanlı /ask/stream · hata: 1/5",
+          "metadata": {
+            "errors": [
+              "Model bozuk bir tekrar döngüsüne girdi (aynı kelime art arda onlarca kez üretildi); cevap erken kesildi. Soruyu farklı ifade edip tekrar dene."
+            ]
+          },
+          "skipped_reason": null,
+          "median": 15885.746800049674,
+          "p95": 16003.365800017491,
+          "min": 8542.357400001492,
+          "max": 16003.365800017491,
+          "n": 5
+        },
+        {
+          "name": "toplam_5_esszamanli",
+          "unit": "ms",
+          "samples": [
+            262949.02280002134,
+            261075.9707999532,
+            261829.00329999393,
+            65909.22480000881,
+            262768.20210000733
+          ],
+          "note": "5 eşzamanlı /ask/stream",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 261829.00329999393,
+          "p95": 262949.02280002134,
+          "min": 65909.22480000881,
+          "max": 262949.02280002134,
+          "n": 5
+        },
+        {
+          "name": "ttft_10_esszamanli",
+          "unit": "ms",
+          "samples": [
+            10338.122599991038,
+            12627.893800032325,
+            8301.763799972832
+          ],
+          "note": "10 eşzamanlı /ask/stream · hata: 7/10",
+          "metadata": {
+            "errors": [
+              "Foundry Local ile bağlantı üretim başlamadan/sırasında beklenmedik şekilde kesildi. `foundry server status` ile servisi kontrol edip tekrar deneyin.",
+              "Foundry Local ile bağlantı üretim başlamadan/sırasında beklenmedik şekilde kesildi. `foundry server status` ile servisi kontrol edip tekrar deneyin.",
+              "Foundry Local ile bağlantı üretim başlamadan/sırasında beklenmedik şekilde kesildi. `foundry server status` ile servisi kontrol edip tekrar deneyin.",
+              "Foundry Local ile bağlantı üretim başlamadan/sırasında beklenmedik şekilde kesildi. `foundry server status` ile servisi kontrol edip tekrar deneyin.",
+              "Foundry Local ile bağlantı üretim başlamadan/sırasında beklenmedik şekilde kesildi. `foundry server status` ile servisi kontrol edip tekrar deneyin.",
+              "Foundry Local ile bağlantı üretim başlamadan/sırasında beklenmedik şekilde kesildi. `foundry server status` ile servisi kontrol edip tekrar deneyin.",
+              "Model bu soru için görünür bir cevap üretmedi (muhtemelen `/no_think`'e rağmen tüm token bütçesini akıl yürütmede tükettim, `<think>` bloğu hiç kapanmadan token sınırına ulaşıldı, ya da geriye anlamsız derecede kısa bir metin kaldı). Otomatik yeniden deneme(ler) de sonuç vermedi -- soruyu tekrar dene ya da biraz daha basit ifade et."
+            ]
+          },
+          "skipped_reason": null,
+          "median": 10338.122599991038,
+          "p95": 12627.893800032325,
+          "min": 8301.763799972832,
+          "max": 12627.893800032325,
+          "n": 3
+        },
+        {
+          "name": "toplam_10_esszamanli",
+          "unit": "ms",
+          "samples": [
+            15154.143399966415,
+            15350.672299973667,
+            15138.483199989423,
+            15322.977699979674,
+            15147.720500011928,
+            15344.070399994962,
+            15139.700100000482,
+            15354.679100040812,
+            15355.614800006151,
+            15333.910199988168
+          ],
+          "note": "10 eşzamanlı /ask/stream",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 15328.44394998392,
+          "p95": 15355.614800006151,
+          "min": 15138.483199989423,
+          "max": 15355.614800006151,
+          "n": 10
+        },
+        {
+          "name": "health_latency_3_akis_altinda",
+          "unit": "ms",
+          "samples": [
+            773.0569000123069,
+            943.6375999939628,
+            1057.0476000430062,
+            994.2205999977887,
+            653.9390999823809,
+            937.3988999868743,
+            801.7984999460168,
+            641.420100000687,
+            880.465499998536,
+            824.6589000336826,
+            939.3866999889724,
+            662.6510000205599,
+            1124.8533999896608,
+            880.8316999929957,
+            634.3590999604203,
+            1012.4371999991126,
+            965.3478999971412,
+            726.4829000341706,
+            880.8495999546722,
+            552.0108999917284
+          ],
+          "note": "event loop/threadpool tıkanıklığı göstergesi (audit P0-3, P1-6)",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 880.6485999957658,
+          "p95": 1124.8533999896608,
+          "min": 552.0108999917284,
+          "max": 1124.8533999896608,
+          "n": 20
+        }
+      ],
+      "extra": {
+        "base_url": "http://127.0.0.1:8000",
+        "user_id": 1,
+        "levels": [
+          1,
+          2,
+          5,
+          10
+        ],
+        "waves": {
+          "1": [
+            {
+              "ttft_ms": 10668.665100005455,
+              "total_ms": 30149.742499983404,
+              "tokens": 798,
+              "error": null
+            }
+          ],
+          "2": [
+            {
+              "ttft_ms": 7458.190000033937,
+              "total_ms": 55841.49710001657,
+              "tokens": 798,
+              "error": null
+            },
+            {
+              "ttft_ms": 7427.930200006813,
+              "total_ms": 55812.75119999191,
+              "tokens": 799,
+              "error": null
+            }
+          ],
+          "5": [
+            {
+              "ttft_ms": 16003.365800017491,
+              "total_ms": 262949.02280002134,
+              "tokens": 798,
+              "error": null
+            },
+            {
+              "ttft_ms": 8542.357400001492,
+              "total_ms": 261075.9707999532,
+              "tokens": 799,
+              "error": null
+            },
+            {
+              "ttft_ms": 15885.746800049674,
+              "total_ms": 261829.00329999393,
+              "tokens": 799,
+              "error": null
+            },
+            {
+              "ttft_ms": 15885.704100015573,
+              "total_ms": 65909.22480000881,
+              "tokens": 189,
+              "error": "Model bozuk bir tekrar döngüsüne girdi (aynı kelime art arda onlarca kez üretildi); cevap erken kesildi. Soruyu farklı ifade edip tekrar dene."
+            },
+            {
+              "ttft_ms": 15889.767099986784,
+              "total_ms": 262768.20210000733,
+              "tokens": 799,
+              "error": null
+            }
+          ],
+          "10": [
+            {
+              "ttft_ms": null,
+              "total_ms": 15154.143399966415,
+              "tokens": 0,
+              "error": "Foundry Local ile bağlantı üretim başlamadan/sırasında beklenmedik şekilde kesildi. `foundry server status` ile servisi kontrol edip tekrar deneyin."
+            },
+            {
+              "ttft_ms": null,
+              "total_ms": 15350.672299973667,
+              "tokens": 0,
+              "error": "Foundry Local ile bağlantı üretim başlamadan/sırasında beklenmedik şekilde kesildi. `foundry server status` ile servisi kontrol edip tekrar deneyin."
+            },
+            {
+              "ttft_ms": null,
+              "total_ms": 15138.483199989423,
+              "tokens": 0,
+              "error": "Foundry Local ile bağlantı üretim başlamadan/sırasında beklenmedik şekilde kesildi. `foundry server status` ile servisi kontrol edip tekrar deneyin."
+            },
+            {
+              "ttft_ms": 10338.122599991038,
+              "total_ms": 15322.977699979674,
+              "tokens": 4,
+              "error": null
+            },
+            {
+              "ttft_ms": null,
+              "total_ms": 15147.720500011928,
+              "tokens": 0,
+              "error": "Foundry Local ile bağlantı üretim başlamadan/sırasında beklenmedik şekilde kesildi. `foundry server status` ile servisi kontrol edip tekrar deneyin."
+            },
+            {
+              "ttft_ms": null,
+              "total_ms": 15344.070399994962,
+              "tokens": 0,
+              "error": "Foundry Local ile bağlantı üretim başlamadan/sırasında beklenmedik şekilde kesildi. `foundry server status` ile servisi kontrol edip tekrar deneyin."
+            },
+            {
+              "ttft_ms": null,
+              "total_ms": 15139.700100000482,
+              "tokens": 0,
+              "error": "Foundry Local ile bağlantı üretim başlamadan/sırasında beklenmedik şekilde kesildi. `foundry server status` ile servisi kontrol edip tekrar deneyin."
+            },
+            {
+              "ttft_ms": 12627.893800032325,
+              "total_ms": 15354.679100040812,
+              "tokens": 1,
+              "error": null
+            },
+            {
+              "ttft_ms": 8301.763799972832,
+              "total_ms": 15355.614800006151,
+              "tokens": 7,
+              "error": null
+            },
+            {
+              "ttft_ms": null,
+              "total_ms": 15333.910199988168,
+              "tokens": 0,
+              "error": "Model bu soru için görünür bir cevap üretmedi (muhtemelen `/no_think`'e rağmen tüm token bütçesini akıl yürütmede tükettim, `<think>` bloğu hiç kapanmadan token sınırına ulaşıldı, ya da geriye anlamsız derecede kısa bir metin kaldı). Otomatik yeniden deneme(ler) de sonuç vermedi -- soruyu tekrar dene ya da biraz daha basit ifade et."
+            }
+          ]
+        },
+        "error_rate": {
+          "1": 0.0,
+          "2": 0.0,
+          "5": 0.2,
+          "10": 0.7
+        }
+      }
+    }
+  }
+}

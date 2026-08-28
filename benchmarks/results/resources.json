@@ -1,0 +1,54 @@
+{
+  "suite": "resources",
+  "environment": {
+    "timestamp": "2026-08-17T14:55:16.354647+00:00",
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "cpu": {
+      "processor": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+      "logical_cores": null,
+      "physical_cores": null,
+      "ram_total_mb": null
+    },
+    "gpu": {
+      "name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+      "vram_total_mb": 8188,
+      "vram_used_mb": 7937,
+      "driver": "573.22"
+    },
+    "settings": {
+      "foundry_model_alias": "ministral-3-3b-instruct-2512",
+      "model_has_thinking": false,
+      "answer_token_budgets": [
+        800
+      ],
+      "embedding_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+      "chunk_size": 220,
+      "chunk_overlap": 40,
+      "top_k_semantic": 8,
+      "top_k_bm25": 8,
+      "max_context_chunks": 5,
+      "max_context_chars": 6000,
+      "min_relevance_score": 0.3,
+      "rrf_k": 60
+    }
+  },
+  "extra": {
+    "vram_before": 7937
+  },
+  "measurements": [
+    {
+      "name": "tumu",
+      "unit": "ms",
+      "samples": [],
+      "note": "",
+      "metadata": {},
+      "skipped_reason": "psutil kurulu değil — `pip install psutil`",
+      "median": null,
+      "p95": null,
+      "min": null,
+      "max": null,
+      "n": 0
+    }
+  ]
+}

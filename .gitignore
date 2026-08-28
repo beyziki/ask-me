@@ -1,0 +1,59 @@
+# --- Kullanıcı verisi -- ASLA COMMIT EDİLMEZ ------------------------------
+# data/ altında gerçek kullanıcı hesapları (argon2 parola özetleri), yüklenmiş
+# ders notları ve CV'ler, bunlardan türetilmiş FAISS indeksleri duruyor.
+# Klasörleri uygulama açılışta kendi oluşturuyor (bkz. core/config.py sonu),
+# bu yüzden depoda tutulmaları gerekmiyor.
+data/
+
+# Prompt önbelleği ve örnekleme çıktıları: içlerinde yüklenmiş dokümanların
+# TAM METNİ ve onlardan üretilmiş cevaplar var (bkz. evals/sampling_probe.py).
+# Buna karşılık baseline.json gibi ölçüm dosyaları yalnızca metrik içeriyor
+# ve bilinçli olarak depoda tutuluyor -- projenin ölçüme dayalı geliştirme
+# geçmişinin kanıtı onlar.
+evals/results/_probe_prompts.json
+evals/results/sampling*.json
+
+# --- Yapılandırma ---------------------------------------------------------
+# .env.example depoda; gerçek .env asla.
+.env
+.env.local
+.env.*.local
+
+# --- Python ---------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.venv/
+venv/
+ENV/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# --- Node / frontend ------------------------------------------------------
+node_modules/
+frontend-web/dist/
+frontend-web/.vite/
+*.local
+npm-debug.log*
+yarn-error.log*
+
+# --- Editör / işletim sistemi --------------------------------------------
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Makineye özel araç artıkları ----------------------------------------
+# Bu iki klasördeki girdiler, yerel Python kurulumundaki streamlit paketine
+# işaret eden SEMBOLİK BAĞLAR (Streamlit artık kullanılmıyor; bkz. README'deki
+# "frontend/ eski prototip" notu). Depoya girerlerse başka bir makinede kırık
+# bağ olarak çıkarlar.
+.agents/
+.claude/

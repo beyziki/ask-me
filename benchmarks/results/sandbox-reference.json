@@ -1,0 +1,663 @@
+{
+  "started_at": "2026-08-17T11:35:03.871142+00:00",
+  "environment": {
+    "timestamp": "2026-08-17T11:35:03.871176+00:00",
+    "python": "3.11.15",
+    "platform": "Linux-6.18.5-fc-v20-x86_64-with-glibc2.39",
+    "cpu": {
+      "processor": "x86_64",
+      "logical_cores": 2,
+      "physical_cores": 2,
+      "ram_total_mb": 8024
+    },
+    "gpu": null,
+    "settings": {
+      "foundry_model_alias": "ministral-3-3b-instruct-2512",
+      "model_has_thinking": false,
+      "answer_token_budgets": [
+        800
+      ],
+      "embedding_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+      "chunk_size": 220,
+      "chunk_overlap": 40,
+      "top_k_semantic": 8,
+      "top_k_bm25": 8,
+      "max_context_chunks": 5,
+      "max_context_chars": 6000,
+      "min_relevance_score": 0.3,
+      "rrf_k": 60
+    }
+  },
+  "suites": {
+    "retrieval": {
+      "ok": true,
+      "measurements": [
+        {
+          "name": "db_tum_chunklari_cek",
+          "unit": "ms",
+          "samples": [
+            8.454820000224572,
+            8.137928999985888,
+            8.06881800008341,
+            8.018639000056282,
+            7.9223539996746695
+          ],
+          "note": "api/ask.py:121 — 1014 satır, 4.46 MB metin, HER SORUDA",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 8.06881800008341,
+          "p95": 8.454820000224572,
+          "min": 7.9223539996746695,
+          "max": 8.454820000224572,
+          "n": 5
+        },
+        {
+          "name": "bm25_korpus_tokenizasyonu",
+          "unit": "ms",
+          "samples": [
+            379.9334629998157,
+            374.9615020001329,
+            373.1313900002533,
+            369.10965500010207,
+            369.7779629997058
+          ],
+          "note": "rag.py:258 — önbelleğe RAĞMEN her soruda tekrarlanıyor",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 373.1313900002533,
+          "p95": 379.9334629998157,
+          "min": 369.10965500010207,
+          "max": 379.9334629998157,
+          "n": 5
+        },
+        {
+          "name": "bm25_index_kurulumu",
+          "unit": "ms",
+          "samples": [
+            183.26902900025743,
+            184.76582699986466,
+            183.50923500020144
+          ],
+          "note": "rag.py:246 — önbellekli, yalnızca ilk soruda ödeniyor",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 183.50923500020144,
+          "p95": 184.76582699986466,
+          "min": 183.26902900025743,
+          "max": 184.76582699986466,
+          "n": 3
+        },
+        {
+          "name": "bm25_search_tr_kisa",
+          "unit": "ms",
+          "samples": [
+            411.10333899996476,
+            420.3566160003902,
+            414.185648000057,
+            397.0246359999692,
+            394.4576000003508,
+            394.971625999915,
+            400.49897400012924,
+            417.60075199999847,
+            424.03640399970755,
+            416.42077100004826
+          ],
+          "note": "rag.py:254 — tokenizasyon DAHİL (gerçek istek yolu) · 'Turing makinesi nedir?'",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 412.64449350001087,
+          "p95": 424.03640399970755,
+          "min": 394.4576000003508,
+          "max": 424.03640399970755,
+          "n": 10
+        },
+        {
+          "name": "bm25_search_en",
+          "unit": "ms",
+          "samples": [
+            405.5072860001019,
+            397.84673199983445,
+            395.20999399974244,
+            400.89261399998577,
+            401.51823499991224,
+            401.77261000008,
+            400.94055700001263,
+            385.0630420001835,
+            389.0882099999544,
+            383.2462760001363
+          ],
+          "note": "rag.py:254 — tokenizasyon DAHİL (gerçek istek yolu) · 'What is a finite state machine?'",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 399.3696729999101,
+          "p95": 405.5072860001019,
+          "min": 383.2462760001363,
+          "max": 405.5072860001019,
+          "n": 10
+        },
+        {
+          "name": "bm25_search_alakasiz",
+          "unit": "ms",
+          "samples": [
+            387.4705849998463,
+            389.32085600026767,
+            393.71453300009307,
+            394.2636900001162,
+            400.75670599981095,
+            391.9665859998531,
+            387.4644679999619,
+            389.4718320002539,
+            395.2408000000105,
+            393.8403459997062
+          ],
+          "note": "rag.py:254 — tokenizasyon DAHİL (gerçek istek yolu) · 'bugün hava nasıl'",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 392.8405594999731,
+          "p95": 400.75670599981095,
+          "min": 387.4644679999619,
+          "max": 400.75670599981095,
+          "n": 10
+        },
+        {
+          "name": "faiss_read_index",
+          "unit": "ms",
+          "samples": [
+            0.2629529999467195,
+            0.22387999979400774,
+            0.18114400018021115,
+            0.15934600014588796,
+            0.18381999962002737
+          ],
+          "note": "rag.py:81 — önbellekli (`_read_index_cached`), soğuk okuma maliyeti",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 0.18381999962002737,
+          "p95": 0.2629529999467195,
+          "min": 0.15934600014588796,
+          "max": 0.2629529999467195,
+          "n": 5
+        },
+        {
+          "name": "faiss_search",
+          "unit": "ms",
+          "samples": [],
+          "note": "",
+          "metadata": {},
+          "skipped_reason": "Embedding modeli kullanılamadı: ProxyError: 403 Forbidden",
+          "median": null,
+          "p95": null,
+          "min": null,
+          "max": null,
+          "n": 0
+        },
+        {
+          "name": "embedding_sorgu",
+          "unit": "ms",
+          "samples": [],
+          "note": "",
+          "metadata": {},
+          "skipped_reason": "Embedding modeli kullanılamadı: ProxyError: 403 Forbidden",
+          "median": null,
+          "p95": null,
+          "min": null,
+          "max": null,
+          "n": 0
+        },
+        {
+          "name": "semantic_search_uctan_uca",
+          "unit": "ms",
+          "samples": [],
+          "note": "",
+          "metadata": {},
+          "skipped_reason": "Embedding modeli kullanılamadı: ProxyError: 403 Forbidden",
+          "median": null,
+          "p95": null,
+          "min": null,
+          "max": null,
+          "n": 0
+        }
+      ],
+      "extra": {
+        "owner_id": 1,
+        "chunk_count": 1014,
+        "corpus_chars": 4463920,
+        "corpus_mb": 4.46,
+        "queries": [
+          "Turing makinesi nedir?",
+          "Context free grammar örnekleri",
+          "TCP ve UDP arasındaki fark nedir",
+          "push down automata nasıl çalışır",
+          "What is a finite state machine?",
+          "bugün hava nasıl"
+        ],
+        "faiss": {
+          "ntotal": 1014,
+          "dim": 384,
+          "type": "IndexFlatIP",
+          "in_memory_mb": 1.56
+        },
+        "document_filter_dilution": [
+          {
+            "document_id": 7,
+            "chunks": 698,
+            "corpus_share_pct": 68.8,
+            "expected_surviving_hits_of_top_k": 5.51
+          },
+          {
+            "document_id": 2,
+            "chunks": 297,
+            "corpus_share_pct": 29.3,
+            "expected_surviving_hits_of_top_k": 2.34
+          },
+          {
+            "document_id": 30,
+            "chunks": 17,
+            "corpus_share_pct": 1.7,
+            "expected_surviving_hits_of_top_k": 0.13
+          },
+          {
+            "document_id": 16,
+            "chunks": 2,
+            "corpus_share_pct": 0.2,
+            "expected_surviving_hits_of_top_k": 0.02
+          }
+        ],
+        "process_rss_mb_after": 972.6640625
+      }
+    },
+    "resources": {
+      "ok": true,
+      "measurements": [
+        {
+          "name": "rss_baslangic",
+          "unit": "MB",
+          "samples": [
+            16.765625
+          ],
+          "note": "yalnızca Python + benchmark modülleri",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 16.765625,
+          "p95": 16.765625,
+          "min": 16.765625,
+          "max": 16.765625,
+          "n": 1
+        },
+        {
+          "name": "rss_backend_import_sonrasi",
+          "unit": "MB",
+          "samples": [
+            812.84765625
+          ],
+          "note": "+796 MB — faiss, sentence_transformers, sqlalchemy",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 812.84765625,
+          "p95": 812.84765625,
+          "min": 812.84765625,
+          "max": 812.84765625,
+          "n": 1
+        },
+        {
+          "name": "rss_embedding_modeli_sonrasi",
+          "unit": "ms",
+          "samples": [],
+          "note": "",
+          "metadata": {},
+          "skipped_reason": "ProxyError: 403 Forbidden",
+          "median": null,
+          "p95": null,
+          "min": null,
+          "max": null,
+          "n": 0
+        },
+        {
+          "name": "rss_korpus_yuklendikten_sonra",
+          "unit": "MB",
+          "samples": [
+            830.22265625
+          ],
+          "note": "+17 MB — 1014 chunk, api/ask.py:121 bunu HER SORUDA yapıyor",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 830.22265625,
+          "p95": 830.22265625,
+          "min": 830.22265625,
+          "max": 830.22265625,
+          "n": 1
+        },
+        {
+          "name": "rss_bm25_onbellegi_sonrasi",
+          "unit": "MB",
+          "samples": [
+            914.80078125
+          ],
+          "note": "+85 MB — rag.py:_bm25_cache",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 914.80078125,
+          "p95": 914.80078125,
+          "min": 914.80078125,
+          "max": 914.80078125,
+          "n": 1
+        },
+        {
+          "name": "rss_10_kullanici_index_onbellegi",
+          "unit": "MB",
+          "samples": [
+            942.578125
+          ],
+          "note": "+28 MB — önbellekte 11 girdi, üst sınır YOK (kullanıcı sayısıyla büyür)",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 942.578125,
+          "p95": 942.578125,
+          "min": 942.578125,
+          "max": 942.578125,
+          "n": 1
+        }
+      ],
+      "extra": {
+        "vram_before": null,
+        "per_request_corpus_mb": 17.4,
+        "chunk_count": 1014,
+        "projected_rss_at_5_concurrent_mb": 899.7,
+        "index_cache_entries_after_10_writes_same_file": 1,
+        "index_cache_entries_after_10_distinct_users": 11,
+        "index_cache_has_size_limit": false,
+        "audit_p1_5_correction": "Aynı dosyaya tekrar yazmak önbellekte BİRİKMİYOR (anahtar = dosya yolu); 10 yazma sonrası girdi sayısı: 1. Gerçek risk, kullanıcı sayısıyla sınırsız büyüme: 10 kullanıcı -> 11 girdi.",
+        "vram_after": null
+      }
+    },
+    "ingestion": {
+      "ok": true,
+      "measurements": [
+        {
+          "name": "tumu",
+          "unit": "ms",
+          "samples": [],
+          "note": "",
+          "metadata": {},
+          "skipped_reason": "data/uploads/ altında PDF bulunamadı",
+          "median": null,
+          "p95": null,
+          "min": null,
+          "max": null,
+          "n": 0
+        }
+      ],
+      "extra": {
+        "files": []
+      }
+    },
+    "bundle": {
+      "ok": true,
+      "measurements": [
+        {
+          "name": "build_suresi",
+          "unit": "ms",
+          "samples": [
+            4839.484789999915
+          ],
+          "note": "tsc -b && vite build",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 4839.484789999915,
+          "p95": 4839.484789999915,
+          "min": 4839.484789999915,
+          "max": 4839.484789999915,
+          "n": 1
+        },
+        {
+          "name": "js_chunk_sayisi",
+          "unit": "adet",
+          "samples": [
+            1
+          ],
+          "note": "1 ise kod bölme YOK (audit P2-5)",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 1,
+          "p95": 1,
+          "min": 1,
+          "max": 1,
+          "n": 1
+        },
+        {
+          "name": "toplam_js_gzip",
+          "unit": "kB",
+          "samples": [
+            147.2802734375
+          ],
+          "note": "",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 147.2802734375,
+          "p95": 147.2802734375,
+          "min": 147.2802734375,
+          "max": 147.2802734375,
+          "n": 1
+        },
+        {
+          "name": "toplam_css_gzip",
+          "unit": "kB",
+          "samples": [
+            6.3466796875
+          ],
+          "note": "",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 6.3466796875,
+          "p95": 6.3466796875,
+          "min": 6.3466796875,
+          "max": 6.3466796875,
+          "n": 1
+        },
+        {
+          "name": "ilk_yukleme_gzip",
+          "unit": "kB",
+          "samples": [
+            153.626953125
+          ],
+          "note": "giriş ekranını görmek için indirilmesi ZORUNLU olan miktar — asıl optimize edilecek sayı",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 153.626953125,
+          "p95": 153.626953125,
+          "min": 153.626953125,
+          "max": 153.626953125,
+          "n": 1
+        },
+        {
+          "name": "toplam_dist_gzip",
+          "unit": "kB",
+          "samples": [
+            157.509765625
+          ],
+          "note": "",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 157.509765625,
+          "p95": 157.509765625,
+          "min": 157.509765625,
+          "max": 157.509765625,
+          "n": 1
+        }
+      ],
+      "extra": {
+        "files": [
+          {
+            "file": "assets/index-D2HkmO72.js",
+            "raw_bytes": 489623,
+            "gzip_bytes": 150815,
+            "ext": "js"
+          },
+          {
+            "file": "assets/index-DEkpuc7G.css",
+            "raw_bytes": 32887,
+            "gzip_bytes": 6499,
+            "ext": "css"
+          },
+          {
+            "file": "favicon.svg",
+            "raw_bytes": 9522,
+            "gzip_bytes": 1499,
+            "ext": "svg"
+          },
+          {
+            "file": "icons.svg",
+            "raw_bytes": 5031,
+            "gzip_bytes": 2161,
+            "ext": "svg"
+          },
+          {
+            "file": "index.html",
+            "raw_bytes": 486,
+            "gzip_bytes": 316,
+            "ext": "html"
+          }
+        ],
+        "js_chunk_count": 1,
+        "css_file_count": 1,
+        "code_splitting_active": false
+      }
+    },
+    "llm": {
+      "ok": true,
+      "measurements": [
+        {
+          "name": "model_warmup_soguk",
+          "unit": "ms",
+          "samples": [
+            0.21589600009974674
+          ],
+          "note": "main.py:_warmup — backend açılışında bir kez; ilk sorunun gizlenen maliyeti",
+          "metadata": {},
+          "skipped_reason": null,
+          "median": 0.21589600009974674,
+          "p95": 0.21589600009974674,
+          "min": 0.21589600009974674,
+          "max": 0.21589600009974674,
+          "n": 1
+        },
+        {
+          "name": "ttft_baglamsiz",
+          "unit": "ms",
+          "samples": [],
+          "note": "",
+          "metadata": {},
+          "skipped_reason": "Foundry Local kullanılamıyor: FoundryNotAvailable: foundry-local-sdk kurulu değil. `pip install foundry-local-sdk` ile kurun ve Foundry Local uygulamasının çalıştığından emin olun.",
+          "median": null,
+          "p95": null,
+          "min": null,
+          "max": null,
+          "n": 0
+        },
+        {
+          "name": "ttft_kisa_baglam",
+          "unit": "ms",
+          "samples": [],
+          "note": "",
+          "metadata": {},
+          "skipped_reason": "Foundry Local kullanılamıyor: FoundryNotAvailable: foundry-local-sdk kurulu değil. `pip install foundry-local-sdk` ile kurun ve Foundry Local uygulamasının çalıştığından emin olun.",
+          "median": null,
+          "p95": null,
+          "min": null,
+          "max": null,
+          "n": 0
+        },
+        {
+          "name": "ttft_dolu_baglam",
+          "unit": "ms",
+          "samples": [],
+          "note": "",
+          "metadata": {},
+          "skipped_reason": "Foundry Local kullanılamıyor: FoundryNotAvailable: foundry-local-sdk kurulu değil. `pip install foundry-local-sdk` ile kurun ve Foundry Local uygulamasının çalıştığından emin olun.",
+          "median": null,
+          "p95": null,
+          "min": null,
+          "max": null,
+          "n": 0
+        },
+        {
+          "name": "toplam_uretim_baglamsiz",
+          "unit": "ms",
+          "samples": [],
+          "note": "",
+          "metadata": {},
+          "skipped_reason": "Foundry Local kullanılamıyor: FoundryNotAvailable: foundry-local-sdk kurulu değil. `pip install foundry-local-sdk` ile kurun ve Foundry Local uygulamasının çalıştığından emin olun.",
+          "median": null,
+          "p95": null,
+          "min": null,
+          "max": null,
+          "n": 0
+        },
+        {
+          "name": "toplam_uretim_kisa_baglam",
+          "unit": "ms",
+          "samples": [],
+          "note": "",
+          "metadata": {},
+          "skipped_reason": "Foundry Local kullanılamıyor: FoundryNotAvailable: foundry-local-sdk kurulu değil. `pip install foundry-local-sdk` ile kurun ve Foundry Local uygulamasının çalıştığından emin olun.",
+          "median": null,
+          "p95": null,
+          "min": null,
+          "max": null,
+          "n": 0
+        },
+        {
+          "name": "toplam_uretim_dolu_baglam",
+          "unit": "ms",
+          "samples": [],
+          "note": "",
+          "metadata": {},
+          "skipped_reason": "Foundry Local kullanılamıyor: FoundryNotAvailable: foundry-local-sdk kurulu değil. `pip install foundry-local-sdk` ile kurun ve Foundry Local uygulamasının çalıştığından emin olun.",
+          "median": null,
+          "p95": null,
+          "min": null,
+          "max": null,
+          "n": 0
+        }
+      ],
+      "extra": {
+        "model_alias": "ministral-3-3b-instruct-2512",
+        "model_has_thinking": false,
+        "answer_token_budgets": [
+          800
+        ],
+        "vram_used_mb_before": null,
+        "error": "Foundry Local kullanılamıyor: FoundryNotAvailable: foundry-local-sdk kurulu değil. `pip install foundry-local-sdk` ile kurun ve Foundry Local uygulamasının çalıştığından emin olun."
+      }
+    },
+    "concurrent": {
+      "ok": true,
+      "measurements": [
+        {
+          "name": "tumu",
+          "unit": "ms",
+          "samples": [],
+          "note": "",
+          "metadata": {},
+          "skipped_reason": "http://127.0.0.1:8000 adresinde çalışan bir backend yok",
+          "median": null,
+          "p95": null,
+          "min": null,
+          "max": null,
+          "n": 0
+        }
+      ],
+      "extra": {
+        "base_url": "http://127.0.0.1:8000",
+        "user_id": 1,
+        "levels": [
+          1,
+          2,
+          5,
+          10
+        ],
+        "waves": {}
+      }
+    }
+  }
+}

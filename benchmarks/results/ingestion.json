@@ -1,0 +1,283 @@
+{
+  "suite": "ingestion",
+  "environment": {
+    "timestamp": "2026-08-17T14:55:38.418128+00:00",
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "cpu": {
+      "processor": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+      "logical_cores": null,
+      "physical_cores": null,
+      "ram_total_mb": null
+    },
+    "gpu": {
+      "name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+      "vram_total_mb": 8188,
+      "vram_used_mb": 7937,
+      "driver": "573.22"
+    },
+    "settings": {
+      "foundry_model_alias": "ministral-3-3b-instruct-2512",
+      "model_has_thinking": false,
+      "answer_token_budgets": [
+        800
+      ],
+      "embedding_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+      "chunk_size": 220,
+      "chunk_overlap": 40,
+      "top_k_semantic": 8,
+      "top_k_bm25": 8,
+      "max_context_chunks": 5,
+      "max_context_chars": 6000,
+      "min_relevance_score": 0.3,
+      "rrf_k": 60
+    }
+  },
+  "extra": {
+    "files": [
+      {
+        "name": "User manual IFM VVB306 (English - 44 pages).pdf",
+        "bucket": "kucuk",
+        "size_kb": 136,
+        "text_chars": 125,
+        "chunk_count": 1,
+        "chunk_chars_min": 123,
+        "chunk_chars_median": 123,
+        "chunk_chars_max": 123,
+        "empty_chunks": 0,
+        "tiny_chunks_under_50_chars": 0
+      },
+      {
+        "name": "VVB306-00_EN-GB.pdf",
+        "bucket": "orta",
+        "size_kb": 398,
+        "text_chars": 5128,
+        "chunk_count": 4,
+        "chunk_chars_min": 1328,
+        "chunk_chars_median": 1536,
+        "chunk_chars_max": 1552,
+        "empty_chunks": 0,
+        "tiny_chunks_under_50_chars": 0
+      },
+      {
+        "name": "hafta 5.pdf",
+        "bucket": "buyuk",
+        "size_kb": 7522,
+        "text_chars": 32688,
+        "chunk_count": 22,
+        "chunk_chars_min": 651,
+        "chunk_chars_median": 1798,
+        "chunk_chars_max": 2483,
+        "empty_chunks": 0,
+        "tiny_chunks_under_50_chars": 0
+      }
+    ],
+    "process_rss_mb_after": null
+  },
+  "measurements": [
+    {
+      "name": "pdf_parse_kucuk_136kb",
+      "unit": "ms",
+      "samples": [
+        25.144900020677596,
+        15.238499967381358,
+        15.707199985627085
+      ],
+      "note": "ingestion.py:34 (pypdf) — User manual IFM VVB306 (English - 44 pages).pdf",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 15.707199985627085,
+      "p95": 25.144900020677596,
+      "min": 15.238499967381358,
+      "max": 25.144900020677596,
+      "n": 3
+    },
+    {
+      "name": "chunking_kucuk_136kb",
+      "unit": "ms",
+      "samples": [
+        0.003700028173625469,
+        0.002500019036233425,
+        0.0027999631129205227,
+        0.002400018274784088,
+        0.002200016751885414
+      ],
+      "note": "ingestion.py:41 — chunk_size=220 kelime",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 0.002500019036233425,
+      "p95": 0.003700028173625469,
+      "min": 0.002200016751885414,
+      "max": 0.003700028173625469,
+      "n": 5
+    },
+    {
+      "name": "embedding_kucuk_136kb",
+      "unit": "ms",
+      "samples": [
+        40.50140001345426
+      ],
+      "note": "rag.py:102 — 1 chunk tek batch'te",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 40.50140001345426,
+      "p95": 40.50140001345426,
+      "min": 40.50140001345426,
+      "max": 40.50140001345426,
+      "n": 1
+    },
+    {
+      "name": "faiss_add_write_kucuk_136kb",
+      "unit": "ms",
+      "samples": [
+        0.35849999403581023,
+        0.2702000201679766,
+        0.2528000040911138
+      ],
+      "note": "rag.py:105-108 — 1 vektör, TÜM index diske yazılıyor",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 0.2702000201679766,
+      "p95": 0.35849999403581023,
+      "min": 0.2528000040911138,
+      "max": 0.35849999403581023,
+      "n": 3
+    },
+    {
+      "name": "pdf_parse_orta_398kb",
+      "unit": "ms",
+      "samples": [
+        115.3751999954693,
+        247.7946999715641,
+        114.15129998931661
+      ],
+      "note": "ingestion.py:34 (pypdf) — VVB306-00_EN-GB.pdf",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 115.3751999954693,
+      "p95": 247.7946999715641,
+      "min": 114.15129998931661,
+      "max": 247.7946999715641,
+      "n": 3
+    },
+    {
+      "name": "chunking_orta_398kb",
+      "unit": "ms",
+      "samples": [
+        0.06640003994107246,
+        0.057999975979328156,
+        0.054500007536262274,
+        0.052099989261478186,
+        0.051499984692782164
+      ],
+      "note": "ingestion.py:41 — chunk_size=220 kelime",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 0.054500007536262274,
+      "p95": 0.06640003994107246,
+      "min": 0.051499984692782164,
+      "max": 0.06640003994107246,
+      "n": 5
+    },
+    {
+      "name": "embedding_orta_398kb",
+      "unit": "ms",
+      "samples": [
+        89.43079999880865
+      ],
+      "note": "rag.py:102 — 4 chunk tek batch'te",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 89.43079999880865,
+      "p95": 89.43079999880865,
+      "min": 89.43079999880865,
+      "max": 89.43079999880865,
+      "n": 1
+    },
+    {
+      "name": "faiss_add_write_orta_398kb",
+      "unit": "ms",
+      "samples": [
+        0.5870999884791672,
+        0.5123000009916723,
+        0.48399996012449265
+      ],
+      "note": "rag.py:105-108 — 4 vektör, TÜM index diske yazılıyor",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 0.5123000009916723,
+      "p95": 0.5870999884791672,
+      "min": 0.48399996012449265,
+      "max": 0.5870999884791672,
+      "n": 3
+    },
+    {
+      "name": "pdf_parse_buyuk_7522kb",
+      "unit": "ms",
+      "samples": [
+        585.4747999692336,
+        554.6917000319809,
+        699.5233000488952
+      ],
+      "note": "ingestion.py:34 (pypdf) — hafta 5.pdf",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 585.4747999692336,
+      "p95": 699.5233000488952,
+      "min": 554.6917000319809,
+      "max": 699.5233000488952,
+      "n": 3
+    },
+    {
+      "name": "chunking_buyuk_7522kb",
+      "unit": "ms",
+      "samples": [
+        0.3877999843098223,
+        0.3912000101990998,
+        0.38539996603503823,
+        0.36910001654177904,
+        0.37289998726919293
+      ],
+      "note": "ingestion.py:41 — chunk_size=220 kelime",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 0.38539996603503823,
+      "p95": 0.3912000101990998,
+      "min": 0.36910001654177904,
+      "max": 0.3912000101990998,
+      "n": 5
+    },
+    {
+      "name": "embedding_buyuk_7522kb",
+      "unit": "ms",
+      "samples": [
+        511.7335999966599
+      ],
+      "note": "rag.py:102 — 22 chunk tek batch'te",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 511.7335999966599,
+      "p95": 511.7335999966599,
+      "min": 511.7335999966599,
+      "max": 511.7335999966599,
+      "n": 1
+    },
+    {
+      "name": "faiss_add_write_buyuk_7522kb",
+      "unit": "ms",
+      "samples": [
+        1.3579000369645655,
+        1.0583000257611275,
+        0.790499965660274
+      ],
+      "note": "rag.py:105-108 — 22 vektör, TÜM index diske yazılıyor",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 1.0583000257611275,
+      "p95": 1.3579000369645655,
+      "min": 0.790499965660274,
+      "max": 1.3579000369645655,
+      "n": 3
+    }
+  ]
+}

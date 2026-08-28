@@ -1,0 +1,165 @@
+{
+  "suite": "bundle",
+  "environment": {
+    "timestamp": "2026-08-17T14:55:45.663046+00:00",
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "cpu": {
+      "processor": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+      "logical_cores": null,
+      "physical_cores": null,
+      "ram_total_mb": null
+    },
+    "gpu": {
+      "name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+      "vram_total_mb": 8188,
+      "vram_used_mb": 7937,
+      "driver": "573.22"
+    },
+    "settings": {
+      "foundry_model_alias": "ministral-3-3b-instruct-2512",
+      "model_has_thinking": false,
+      "answer_token_budgets": [
+        800
+      ],
+      "embedding_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+      "chunk_size": 220,
+      "chunk_overlap": 40,
+      "top_k_semantic": 8,
+      "top_k_bm25": 8,
+      "max_context_chunks": 5,
+      "max_context_chars": 6000,
+      "min_relevance_score": 0.3,
+      "rrf_k": 60
+    }
+  },
+  "extra": {
+    "files": [
+      {
+        "file": "assets/index-D2HkmO72.js",
+        "raw_bytes": 489623,
+        "gzip_bytes": 150815,
+        "ext": "js"
+      },
+      {
+        "file": "assets/index-DEkpuc7G.css",
+        "raw_bytes": 32887,
+        "gzip_bytes": 6499,
+        "ext": "css"
+      },
+      {
+        "file": "favicon.svg",
+        "raw_bytes": 9522,
+        "gzip_bytes": 1499,
+        "ext": "svg"
+      },
+      {
+        "file": "icons.svg",
+        "raw_bytes": 5031,
+        "gzip_bytes": 2161,
+        "ext": "svg"
+      },
+      {
+        "file": "index.html",
+        "raw_bytes": 486,
+        "gzip_bytes": 316,
+        "ext": "html"
+      }
+    ],
+    "js_chunk_count": 1,
+    "css_file_count": 1,
+    "code_splitting_active": false
+  },
+  "measurements": [
+    {
+      "name": "build_suresi",
+      "unit": "ms",
+      "samples": [
+        5571.397799998522
+      ],
+      "note": "tsc -b && vite build",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 5571.397799998522,
+      "p95": 5571.397799998522,
+      "min": 5571.397799998522,
+      "max": 5571.397799998522,
+      "n": 1
+    },
+    {
+      "name": "js_chunk_sayisi",
+      "unit": "adet",
+      "samples": [
+        1
+      ],
+      "note": "1 ise kod bölme YOK (audit P2-5)",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 1,
+      "p95": 1,
+      "min": 1,
+      "max": 1,
+      "n": 1
+    },
+    {
+      "name": "toplam_js_gzip",
+      "unit": "kB",
+      "samples": [
+        147.2802734375
+      ],
+      "note": "",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 147.2802734375,
+      "p95": 147.2802734375,
+      "min": 147.2802734375,
+      "max": 147.2802734375,
+      "n": 1
+    },
+    {
+      "name": "toplam_css_gzip",
+      "unit": "kB",
+      "samples": [
+        6.3466796875
+      ],
+      "note": "",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 6.3466796875,
+      "p95": 6.3466796875,
+      "min": 6.3466796875,
+      "max": 6.3466796875,
+      "n": 1
+    },
+    {
+      "name": "ilk_yukleme_gzip",
+      "unit": "kB",
+      "samples": [
+        153.626953125
+      ],
+      "note": "giriş ekranını görmek için indirilmesi ZORUNLU olan miktar — asıl optimize edilecek sayı",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 153.626953125,
+      "p95": 153.626953125,
+      "min": 153.626953125,
+      "max": 153.626953125,
+      "n": 1
+    },
+    {
+      "name": "toplam_dist_gzip",
+      "unit": "kB",
+      "samples": [
+        157.509765625
+      ],
+      "note": "",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 157.509765625,
+      "p95": 157.509765625,
+      "min": 157.509765625,
+      "max": 157.509765625,
+      "n": 1
+    }
+  ]
+}

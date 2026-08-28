@@ -1,0 +1,35 @@
+# Ask Me? — araç yapılandırması.
+#
+# Bu dosya projeyi PAKETLEMİYOR (build-system yok); yalnızca pytest ve
+# yardımcı araçların ayarlarını tek yerde topluyor. Önceden her test dosyası
+# kendi `sys.path` ve env kurulumunu yapıyordu; ortak kurulum artık
+# tests/conftest.py'de (bkz. oradaki veritabanı izolasyonu notu).
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# Benchmark'lar ve eval'ler varsayılan `pytest` çalıştırmasına DAHİL DEĞİL:
+# ikisi de dakikalar sürebiliyor ve bazıları Foundry Local/GPU istiyor.
+norecursedirs = ["benchmarks", "evals", ".venv", "data", "frontend-web", "node_modules"]
+addopts = [
+    "-q",
+    "--strict-markers",
+    # Varsayılan çalıştırmada yavaş ve donanıma bağlı testleri atla.
+    # Hepsini çalıştırmak için: pytest -m ""
+    "-m", "not slow and not needs_foundry and not benchmark",
+]
+markers = [
+    "slow: çalışması saniyeler-dakikalar süren test (ör. gerçek embedding üretimi)",
+    "needs_foundry: çalışan bir Foundry Local servisi ve yüklü model gerektirir",
+    "needs_gpu: CUDA'lı bir GPU gerektirir",
+    "benchmark: ölçüm amaçlı; doğrulama değil, sayı üretir",
+    "eval: RAG doğruluk (retrieval kalitesi) değerlendirmesi",
+]
+filterwarnings = [
+    "default",
+    # Üçüncü parti kütüphanelerin kendi deprecation'ları test çıktısını
+    # boğuyor; PROJENİN KENDİ deprecation'ları (SQLAlchemy Query.get,
+    # datetime.utcnow, FastAPI on_event) bilinçli olarak GÖRÜNÜR bırakıldı —
+    # bunlar Faz 8'de temizlenecek gerçek teknik borç.
+    "ignore::DeprecationWarning:passlib.*",
+    "ignore::DeprecationWarning:argon2.*",
+]

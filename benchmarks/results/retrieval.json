@@ -1,0 +1,313 @@
+{
+  "suite": "retrieval",
+  "environment": {
+    "timestamp": "2026-08-17T14:55:14.984750+00:00",
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "cpu": {
+      "processor": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+      "logical_cores": null,
+      "physical_cores": null,
+      "ram_total_mb": null
+    },
+    "gpu": {
+      "name": "NVIDIA GeForce RTX 4060 Laptop GPU",
+      "vram_total_mb": 8188,
+      "vram_used_mb": 7937,
+      "driver": "573.22"
+    },
+    "settings": {
+      "foundry_model_alias": "ministral-3-3b-instruct-2512",
+      "model_has_thinking": false,
+      "answer_token_budgets": [
+        800
+      ],
+      "embedding_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+      "chunk_size": 220,
+      "chunk_overlap": 40,
+      "top_k_semantic": 8,
+      "top_k_bm25": 8,
+      "max_context_chunks": 5,
+      "max_context_chars": 6000,
+      "min_relevance_score": 0.3,
+      "rrf_k": 60
+    }
+  },
+  "extra": {
+    "owner_id": 1,
+    "chunk_count": 1014,
+    "corpus_chars": 4463920,
+    "corpus_mb": 4.46,
+    "queries": [
+      "Turing makinesi nedir?",
+      "Context free grammar örnekleri",
+      "TCP ve UDP arasındaki fark nedir",
+      "push down automata nasıl çalışır",
+      "What is a finite state machine?",
+      "bugün hava nasıl"
+    ],
+    "faiss": {
+      "ntotal": 1014,
+      "dim": 384,
+      "type": "IndexFlatIP",
+      "in_memory_mb": 1.56
+    },
+    "document_filter_dilution": [
+      {
+        "document_id": 7,
+        "chunks": 698,
+        "corpus_share_pct": 68.8,
+        "expected_surviving_hits_of_top_k": 5.51
+      },
+      {
+        "document_id": 2,
+        "chunks": 297,
+        "corpus_share_pct": 29.3,
+        "expected_surviving_hits_of_top_k": 2.34
+      },
+      {
+        "document_id": 30,
+        "chunks": 17,
+        "corpus_share_pct": 1.7,
+        "expected_surviving_hits_of_top_k": 0.13
+      },
+      {
+        "document_id": 16,
+        "chunks": 2,
+        "corpus_share_pct": 0.2,
+        "expected_surviving_hits_of_top_k": 0.02
+      }
+    ],
+    "process_rss_mb_after": null
+  },
+  "measurements": [
+    {
+      "name": "db_tum_chunklari_cek",
+      "unit": "ms",
+      "samples": [
+        15.259300009347498,
+        15.800799999851733,
+        20.737299986649305,
+        15.061400015838444,
+        14.75530001334846
+      ],
+      "note": "api/ask.py:121 — 1014 satır, 4.46 MB metin, HER SORUDA",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 15.259300009347498,
+      "p95": 20.737299986649305,
+      "min": 14.75530001334846,
+      "max": 20.737299986649305,
+      "n": 5
+    },
+    {
+      "name": "bm25_korpus_tokenizasyonu",
+      "unit": "ms",
+      "samples": [
+        435.60900003649294,
+        490.5307000153698,
+        608.4583000047132,
+        619.9842999922112,
+        499.0834000054747
+      ],
+      "note": "rag.py:258 — önbelleğe RAĞMEN her soruda tekrarlanıyor",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 499.0834000054747,
+      "p95": 619.9842999922112,
+      "min": 435.60900003649294,
+      "max": 619.9842999922112,
+      "n": 5
+    },
+    {
+      "name": "bm25_index_kurulumu",
+      "unit": "ms",
+      "samples": [
+        324.15139995282516,
+        308.4911999758333,
+        324.1929999785498
+      ],
+      "note": "rag.py:246 — önbellekli, yalnızca ilk soruda ödeniyor",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 324.15139995282516,
+      "p95": 324.1929999785498,
+      "min": 308.4911999758333,
+      "max": 324.1929999785498,
+      "n": 3
+    },
+    {
+      "name": "bm25_search_tr_kisa",
+      "unit": "ms",
+      "samples": [
+        452.3645000299439,
+        467.65980002237484,
+        458.67409999482334,
+        441.69919996056706,
+        438.8223999994807,
+        474.6768999611959,
+        445.7865000003949,
+        452.1468000020832,
+        475.02129996428266,
+        451.6311000334099
+      ],
+      "note": "rag.py:254 — tokenizasyon DAHİL (gerçek istek yolu) · 'Turing makinesi nedir?'",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 452.25565001601353,
+      "p95": 475.02129996428266,
+      "min": 438.8223999994807,
+      "max": 475.02129996428266,
+      "n": 10
+    },
+    {
+      "name": "bm25_search_en",
+      "unit": "ms",
+      "samples": [
+        479.88290002103895,
+        437.2484000050463,
+        433.6546000558883,
+        584.7660000436008,
+        451.0825000470504,
+        463.27070001279935,
+        432.6062999898568,
+        437.3304999899119,
+        444.4663000176661,
+        453.66549998288974
+      ],
+      "note": "rag.py:254 — tokenizasyon DAHİL (gerçek istek yolu) · 'What is a finite state machine?'",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 447.77440003235824,
+      "p95": 584.7660000436008,
+      "min": 432.6062999898568,
+      "max": 584.7660000436008,
+      "n": 10
+    },
+    {
+      "name": "bm25_search_alakasiz",
+      "unit": "ms",
+      "samples": [
+        429.9440999748185,
+        434.648800001014,
+        428.6392999929376,
+        447.9642999940552,
+        432.38129996461794,
+        447.82519998261705,
+        445.1045999885537,
+        436.7006000247784,
+        451.9270000164397,
+        496.59369996516034
+      ],
+      "note": "rag.py:254 — tokenizasyon DAHİL (gerçek istek yolu) · 'bugün hava nasıl'",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 440.90260000666603,
+      "p95": 496.59369996516034,
+      "min": 428.6392999929376,
+      "max": 496.59369996516034,
+      "n": 10
+    },
+    {
+      "name": "faiss_read_index",
+      "unit": "ms",
+      "samples": [
+        1.4944999711588025,
+        0.8683999767526984,
+        0.9051000233739614,
+        1.3531000004149973,
+        1.1259999591857195
+      ],
+      "note": "rag.py:81 — önbellekli (`_read_index_cached`), soğuk okuma maliyeti",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 1.1259999591857195,
+      "p95": 1.4944999711588025,
+      "min": 0.8683999767526984,
+      "max": 1.4944999711588025,
+      "n": 5
+    },
+    {
+      "name": "faiss_search",
+      "unit": "ms",
+      "samples": [
+        0.10720000136643648,
+        0.08060003165155649,
+        0.0665000407025218,
+        0.0651999725960195,
+        0.07599999662488699,
+        0.06470002699643373,
+        0.0686999992467463,
+        0.06990000838413835,
+        0.07080001523718238,
+        0.0610999995842576,
+        0.06009999196976423,
+        0.058500037994235754,
+        0.058399979025125504,
+        0.06699998630210757,
+        0.05909998435527086,
+        0.05920004332438111,
+        0.058999983593821526,
+        0.06749999010935426,
+        0.05979998968541622,
+        0.05879998207092285
+      ],
+      "note": "rag.py:206 — 1014 vektör, top_k=8",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 0.06494999979622662,
+      "p95": 0.10720000136643648,
+      "min": 0.058399979025125504,
+      "max": 0.10720000136643648,
+      "n": 20
+    },
+    {
+      "name": "embedding_sorgu",
+      "unit": "ms",
+      "samples": [
+        17.131200002040714,
+        15.928999986499548,
+        16.50349999545142,
+        13.963900040835142,
+        15.169899968896061,
+        14.741100021637976,
+        14.546999998856336,
+        14.434700016863644,
+        14.520899974741042,
+        13.697899994440377
+      ],
+      "note": "rag.py:203 — soru başına, önbelleklenmiyor",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 14.644050010247156,
+      "p95": 17.131200002040714,
+      "min": 13.697899994440377,
+      "max": 17.131200002040714,
+      "n": 10
+    },
+    {
+      "name": "semantic_search_uctan_uca",
+      "unit": "ms",
+      "samples": [
+        15.427700011059642,
+        13.803299982100725,
+        14.498099975753576,
+        14.7004000027664,
+        14.80720000108704,
+        15.379799995571375,
+        14.96569998562336,
+        16.455099976155907,
+        15.347399981692433,
+        15.97320003202185
+      ],
+      "note": "rag.py:197 — embedding + FAISS arama + eşleme",
+      "metadata": {},
+      "skipped_reason": null,
+      "median": 15.156549983657897,
+      "p95": 16.455099976155907,
+      "min": 13.803299982100725,
+      "max": 16.455099976155907,
+      "n": 10
+    }
+  ]
+}
