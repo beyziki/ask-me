@@ -249,6 +249,61 @@ daemon'ın tamamen takılmasına yol açıyor. Bkz. README'deki çalıştırma k
 
 ---
 
+## "Bağlantı kesildi" aslında VRAM yetmemesi
+
+**Gözlem.** Arayüzde şu hata çıkıyor:
+
+> Foundry Local ile bağlantı üretim başlamadan/sırasında beklenmedik şekilde
+> kesildi.
+
+Backend tarafında asıl istisna `RemoteProtocolError: peer closed connection
+without sending complete message body`. Foundry `200 OK` dönüyor, model
+"loaded successfully" diyor, retrieval de sorunsuz çalışıyor
+(`en iyi skor=0.526 -> has_context=True`) — dışarıdan hiçbir şey yanlış
+görünmüyor.
+
+**Gerçek sebep** yalnızca `foundry server logs` içinde görünüyor:
+
+```
+OnnxRuntimeGenAIException: CUDA error in CudaMallocArray
+  at ...\onnxruntime-genai\src\cuda\cuda_common.h:131 - out of memory
+  at Microsoft.ML.OnnxRuntimeGenAI.Generator..ctor(Model, GeneratorParams)
+```
+
+Kritik ayrıntı yığındaki konum: çökme `Generator` **kurulurken** oluyor.
+Yani modelin ağırlıkları GPU'ya çoktan yerleşmiş; yer kalmayan şey o isteğin
+**KV cache**'i. Bu yüzden "model başarıyla yüklendi" satırı yanıltıcı — model
+gerçekten yüklü, üretemeyen şey istek.
+
+**Neden bu kadar geç anlaşıldı.** Üç katman birden sebebi gizliyordu:
+
+1. Foundry, hata çıktığında bile `200 OK` + `text/event-stream` gönderiyor
+   (başlıklar gövdeden önce yazılıyor), sonra bağlantıyı kapatıyor. HTTP
+   seviyesinde istek başarılı görünüyor.
+2. `api/ask.py` bu istisnayı yakalayıp kullanıcıya mesaj gösteriyor ama
+   `__cause__`'u hiç loglamıyordu — geliştirici boş terminalle kalıyordu.
+   (Düzeltildi: artık `asil sebep: ...` diye yazılıyor.)
+3. Uygulama logları zaten görünmüyordu; uvicorn yalnızca kendi logger'larını
+   yapılandırıyor ve kök logger'da handler olmadığı için `logger.info`
+   sessizce kayboluyordu. (Düzeltildi: `main.py`'de `logging.basicConfig`.)
+
+**Ne yapmalı.**
+
+- **Önce GPU'yu boşalt.** `nvidia-smi` çıktısındaki süreç listesine bak. 8 GB'lık
+  bir dizüstü kartında arka planda duran bir oyun ya da launcher (gözlemlenen:
+  `EpicGamesLauncher.exe` ve bir Unreal Engine oyun süreci) tek başına
+  gigabaytlarca VRAM tutabiliyor. Bunları kapatmak çoğu zaman yeterli.
+  > `nvidia-smi`'yi model YÜKLÜYKEN çalıştır. Foundry modeli TTL sonunda
+  > boşaltıyor (daemon log'unda arka arkaya "loaded successfully" satırları
+  > bunun izi); boşken ölçüm alırsan kart bomboş görünür ve yanıltır.
+- **KV cache'i küçült.** `.env`'de `ANSWER_MAX_TOKENS`, `MAX_CONTEXT_CHUNKS`
+  ve `MAX_CONTEXT_CHARS` değerlerini düşür — KV cache boyutu (bağlam +
+  üretilecek token) uzunluğuyla doğru orantılı.
+- **Embedding modelini GPU'dan uzak tut** (varsayılan artık öyle; bkz. bir
+  sonraki bölüm).
+
+---
+
 ## Embedding modeli GPU'yu dil modelinden çalıyor
 
 **Gözlem.** `evals/sampling_probe.py` prompt önbelleği boşken çalıştırıldığında

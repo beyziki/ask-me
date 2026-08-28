@@ -10,6 +10,20 @@ from backend.app.db.base import Base, engine, run_startup_migrations
 from backend.app.db import models  # noqa: F401 - tabloların oluşması için import edilir
 from backend.app.api import ask, code, documents, quiz, summary, users
 
+# Uygulama loglarini GORUNUR yap.
+#
+# Uvicorn yalnizca KENDI logger'larini yapilandiriyor; uygulama modullerinin
+# `logging.getLogger(__name__)` ile aldigi logger'lar kok logger'a dusuyor ve
+# kok logger'in hicbir handler'i olmadigi icin Python'un "lastResort"
+# mekanizmasi devreye giriyor -- o da yalnizca WARNING ve ustunu basiyor.
+# Sonuc: `logger.info(...)` ile yazilan her sey SESSIZCE KAYBOLUYORDU, ki
+# teshis icin eklenen retrieval satiri (bkz. api/ask.py:_retrieve) tam olarak
+# o seviyedeydi ve kimse goremiyordu.
+logging.basicConfig(
+    level=getattr(logging, settings.log_level.upper(), logging.INFO),
+    format="%(levelname)s:     %(name)s - %(message)s",
+)
+
 logger = logging.getLogger(__name__)
 
 Base.metadata.create_all(bind=engine)

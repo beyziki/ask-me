@@ -543,6 +543,23 @@ def _looks_too_short(text: str) -> bool:
 # Local'in mesaj şemasında karşılığı olmadığı için burada uygulanamıyor.)
 # Yine de bu çağrıyı KALDIRMIYORUZ: risksiz (hata fırlatmıyor, zararı yok)
 # ve #808 issue'su ileride çözülürse otomatik olarak işe yarayacak.
+def _foundry_extra_body() -> dict:
+    """OpenAI şemasında OLMAYAN, Foundry Local'e özgü alanlar.
+
+    OpenAI Python SDK'sinin `create()` imzası tiplenmiş; burada olmayan bir
+    anahtar kelime argümanı sunucuya hiç gitmeden `TypeError` ile
+    reddediliyor. Foundry Local'in kabul ettiği ama OpenAI'da bulunmayan
+    alanlar (`ep`, `ttl`, `top_k`, `random_seed`) bu yüzden `extra_body`
+    içinde gönderilmek zorunda.
+    """
+    extra: dict = {}
+    if settings.foundry_execution_provider:
+        # bkz. core/config.py:foundry_execution_provider -- 8 GB kartta
+        # KV cache OOM'unu aşmanın çalışan tek yolu.
+        extra["ep"] = settings.foundry_execution_provider
+    return extra
+
+
 def _create_chat_completion(client, **kwargs):
     """`client.chat.completions.create(**kwargs)`'ı, mümkünse önce Qwen3'ün
     resmi `enable_thinking=False` anahtarıyla dener; desteklenmiyorsa
@@ -555,17 +572,23 @@ def _create_chat_completion(client, **kwargs):
     """
     from openai import BadRequestError
 
+    extra = _foundry_extra_body()
+
     # Düşünmeyen (instruct) bir model kullanılıyorsa bastırılacak bir akıl
-    # yürütme zaten yok: ekstra alanı hiç göndermeyip tek çağrıyla bitiriyoruz.
+    # yürütme zaten yok: `enable_thinking` denemesini hiç yapmıyoruz.
     if not settings.model_has_thinking:
+        if extra:
+            kwargs["extra_body"] = extra
         return client.chat.completions.create(**kwargs)
 
     try:
         return client.chat.completions.create(
-            extra_body={"chat_template_kwargs": {"enable_thinking": False}},
+            extra_body={**extra, "chat_template_kwargs": {"enable_thinking": False}},
             **kwargs,
         )
     except BadRequestError:
+        if extra:
+            kwargs["extra_body"] = extra
         return client.chat.completions.create(**kwargs)
 
 
@@ -1014,9 +1037,36 @@ def generate_answer_stream(
                     )
                 yield piece
         except TRANSPORT_ERRORS as exc:
+            # Buraya YALNIZCA hiç içerik gelmeden bağlantı koptuysa
+            # düşülüyor (bkz. `_stream_and_strip`: içerik akmışsa hata
+            # yutuluyor). Bu ayrımın teşhis değeri yüksek: Foundry Local
+            # 200 OK + `text/event-stream` başlığını gönderdikten SONRA
+            # ölmüş demektir, yani istek geçerliydi.
+            #
+            # ÖLÇÜLDÜ: bu durumun sebebi VRAM. Foundry Local'in kendi
+            # log'unda (`foundry server logs`) karşılığı şu:
+            #
+            #   OnnxRuntimeGenAIException: CUDA error in CudaMallocArray
+            #     ... - out of memory
+            #     at Microsoft.ML.OnnxRuntimeGenAI.Generator..ctor(...)
+            #
+            # Çökme `Generator` KURULURKEN oluyor, yani modelin ağırlıkları
+            # zaten yüklüyken isteğin KV cache'i için yer kalmadığında. Model
+            # "başarıyla yüklendi" dediği için sorun dışarıdan görünmüyor.
+            # Kullanıcıya "bağlantı kesildi" demek doğru ama işe yaramaz;
+            # asıl sebebi ve ne yapabileceğini söylüyoruz.
             raise FoundryNotAvailable(
-                "Foundry Local ile bağlantı üretim başlamadan/sırasında beklenmedik şekilde "
-                "kesildi. `foundry server status` ile servisi kontrol edip tekrar deneyin."
+                "Foundry Local üretime hiç başlayamadan bağlantıyı kesti: GPU belleği "
+                "(VRAM) bu isteğin KV cache'i için yetmedi. Doğrulamak için "
+                "`foundry server logs` çıktısında \"CudaMallocArray - out of memory\" "
+                "satırını ara.\n\n"
+                "ÖLÇÜLDÜ: ANSWER_MAX_TOKENS / MAX_CONTEXT_* değerlerini düşürmek bunu "
+                "ÇÖZMÜYOR — max_tokens 800'den 500'e ve bağlam 6552'den 3430 bayta "
+                "indirildiğinde hata birebir aynı kaldı. Tahsis, isteğin uzunluğuna "
+                "değil modelin tam bağlam penceresine göre yapılıyor.\n\n"
+                "Çalışan iki çözüm: (1) `.env`'de FOUNDRY_EXECUTION_PROVIDER=cpu — "
+                "yavaş ama OOM olmuyor; (2) daha küçük bir model (`foundry model list` "
+                "ile bak, `.env`'de FOUNDRY_MODEL_ALIAS ile değiştir)."
             ) from exc
 
         if produced_output:

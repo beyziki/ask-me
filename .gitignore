@@ -57,3 +57,4 @@ desktop.ini
 # bağ olarak çıkarlar.
 .agents/
 .claude/
+model-list.txt

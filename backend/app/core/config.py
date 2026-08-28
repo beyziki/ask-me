@@ -41,6 +41,31 @@ class Settings(BaseSettings):
     # Elle zorlamak için .env'de MODEL_THINKING=true/false yazılabilir.
     model_thinking: bool | None = None
 
+    # Foundry Local'in çalıştıracağı donanım ("execution provider").
+    # None -> Foundry kendi seçer (kartı varsa CUDA).
+    #
+    # NEDEN VAR: 8 GB'lık bir kartta bu model GPU'ya yükleniyor (3.6 GB) ama
+    # istek geldiğinde KV cache'e yer kalmayıp ONNX Runtime GenAI
+    # "CudaMallocArray - out of memory" ile çöküyor. ÖLÇÜLDÜ: cache tahsisi
+    # isteğin uzunluğuna bağlı DEĞİL -- max_tokens 800'den 500'e, bağlam
+    # 6552'den 3430 bayta indirildiğinde hata birebir aynı kaldı. Yani
+    # tahsis modelin tam bağlam penceresine göre yapılıyor ve istek tarafından
+    # küçültülemiyor.
+    #
+    # DENENDI VE YETMEDI: `ep` alanını istekle göndermek modeli CPU'ya
+    # geçirmiyor. Execution provider model YÜKLENİRKEN belirleniyor; Foundry
+    # modelleri donanıma özel varyantlar halinde tutuyor
+    # (`ministral-3-3b-instruct-2512-cuda-gpu`) ve zaten yüklü bir CUDA
+    # varyantı istek başına CPU'ya çevrilemiyor. Log'da kanıtı:
+    # `ep=cpu` gönderildiği hâlde
+    # `HandleChatCompletionAsStreamRequest -> model:...-cuda-gpu`.
+    #
+    # CPU'da çalıştırmak isteniyorsa modelin CPU VARYANTI yüklenmeli
+    # (`foundry model list` ile varyant adına bakıp FOUNDRY_MODEL_ALIAS'ı
+    # değiştir). Bu ayar yine de duruyor: Foundry'nin `ep` alanını geçirmenin
+    # tek yolu ve ileride varyant seçimini de etkileyebilir.
+    foundry_execution_provider: str | None = None
+
     # Cevap üretimi için token bütçesi. Düşünmeyen modelde tek ve küçük bir
     # bütçe yeterli (üretilen her token görünür cevap). Thinking modelde ilk
     # deneme başarısız olursa çok daha geniş bir bütçeyle tekrar denenir.
@@ -109,6 +134,11 @@ class Settings(BaseSettings):
     # bilgi yok" kabul edilir; model alakasız parçalardan cevap uydurmak
     # yerine genel bilgiyle ve açık bir uyarıyla cevap verir (bkz. api/ask.py).
     min_relevance_score: float = 0.30
+
+    # Uygulama log seviyesi (bkz. main.py'deki logging.basicConfig).
+    # INFO, retrieval teshis satirini gorunur kilar; gurultu gelirse
+    # .env'de LOG_LEVEL=WARNING yapilabilir.
+    log_level: str = "INFO"
 
     # --- Dil ---------------------------------------------------------------
     supported_languages: tuple[str, ...] = ("tr", "en")

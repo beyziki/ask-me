@@ -8,6 +8,7 @@ soruda sıfırdan yapılıyordu ve toplam gecikmenin gözle görülür bir kısm
 """
 from __future__ import annotations
 
+import logging
 import re
 import threading
 from pathlib import Path
@@ -19,6 +20,8 @@ from rank_bm25 import BM25Okapi
 from sentence_transformers import SentenceTransformer
 
 from backend.app.core.config import settings
+
+logger = logging.getLogger(__name__)
 
 _embedder: SentenceTransformer | None = None
 
@@ -34,10 +37,40 @@ def get_embedder() -> SentenceTransformer:
     """
     global _embedder
     if _embedder is None:
-        _embedder = SentenceTransformer(
+        _embedder = _load_embedder()
+    return _embedder
+
+
+def _load_embedder() -> SentenceTransformer:
+    """Modeli ÖNCE yerel önbellekten yüklemeyi dener.
+
+    NEDEN: `SentenceTransformer(...)` varsayılan olarak, model diskte
+    önbellekte OLSA BİLE, her açılışta huggingface.co'ya bir dizi HEAD/GET
+    isteği atıp sürümü doğruluyor (gözlemlendi: backend her başlatıldığında
+    20'den fazla istek). Bu, "hiçbir veri makineden dışarı çıkmaz" iddiasıyla
+    doğrudan çelişiyor -- gönderilen şey ders notu değil ama yine de dışarıya
+    bir istek, ve internet yokken her seferinde zaman aşımı bekleniyor.
+
+    `local_files_only=True` bu doğrulamayı tamamen atlıyor. Model henüz
+    indirilmemişse yükleme başarısız oluyor; o durumda (yalnızca o durumda)
+    ağa çıkan normal yüklemeye düşüp modeli indiriyoruz. Yani: ilk kurulumda
+    internet gerekiyor, sonrasında hiç gerekmiyor.
+    """
+    try:
+        return SentenceTransformer(
+            settings.embedding_model,
+            device=settings.embedding_device,
+            local_files_only=True,
+        )
+    except Exception:
+        logger.info(
+            "Embedding modeli yerel önbellekte bulunamadı; bir kereliğine "
+            "indiriliyor (%s). Sonraki açılışlar tamamen çevrimdışı olacak.",
+            settings.embedding_model,
+        )
+        return SentenceTransformer(
             settings.embedding_model, device=settings.embedding_device
         )
-    return _embedder
 
 
 # --- Tokenizasyon ---------------------------------------------------------

@@ -284,6 +284,18 @@ def ask_stream(
             ):
                 yield _sse({"type": "token", "content": piece})
         except (FoundryNotAvailable, GpuContextLost) as exc:
+            # ASIL sebebi loglamak sart: bu iki istisna, altlarindaki gercek
+            # hatanin (httpx transport hatasi, CUDA out-of-memory, ...)
+            # uzerine giydirilmis KULLANICIYA DONUK mesajlar. Eskiden burada
+            # hic log yoktu, yani `__cause__` sessizce kayboluyordu ve
+            # kullanici "baglanti kesildi" mesajiyla, gelistirici de bos bir
+            # terminalle kaliyordu -- nedenini bulmanin hicbir yolu yoktu.
+            logger.warning(
+                "/ask/stream: %s: %s | asil sebep: %r",
+                type(exc).__name__,
+                exc,
+                exc.__cause__,
+            )
             yield _sse({"type": "error", "detail": str(exc)})
             return
         except DegenerateOutput as exc:
