@@ -285,3 +285,7 @@ yönetici terminalinde başlatılan bir daemon'a backend erişemez.
 Diğer Foundry Local'e özgü hatalar (model yüklenmiyor, bağlantı yarıda
 kopuyor, model boş cevap veriyor) ve bunlara karşı koddaki korumalar:
 [`docs/foundry-local-notlari.md`](docs/foundry-local-notlari.md)
+
+## Final Teslim
+
+**Final Sunumu:** [2 dakikalık sunumu izlemek için tıklayın] (https://drive.google.com/file/d/1e-Rot8WyLyb5MmcdHX6qFRfic9Ft8bby/view?usp=sharing)
